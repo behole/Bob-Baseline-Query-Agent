@@ -1,0 +1,38 @@
+# API Keys and Credentials
+config.json
+google-credentials.json
+*.pem
+*.key
+
+# Screenshots
+screenshots/
+*.png
+*.jpg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test files
+test_*.txt
+temp_*
