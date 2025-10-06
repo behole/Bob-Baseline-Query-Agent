@@ -1,0 +1,132 @@
+[
+  {
+    "num": 1,
+    "text": "Which brush-on sunscreens really work?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 2,
+    "text": "Which brush-on sunscreens are more effective compared to traditional sunscreen?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 3,
+    "text": "Which brush-on sunscreen is the easiest apply?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 4,
+    "text": "Which brush-on sunscreen is safe for sensitive skin?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 5,
+    "text": "Which brush-on sunscreen is safe for acne-prone skin?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 6,
+    "text": "Brush-on vs traditional sunscreen - which is better?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 7,
+    "text": "Brush On Block vs Colorescience",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 8,
+    "text": "Brush On Block vs Supergoop powder sunscreen",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 9,
+    "text": "Which brush-on sunscreen is best for use over makeup?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 10,
+    "text": "Best powder sunscreen for reapplication over makeup",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 11,
+    "text": "Which brush-on sunscreen is reef safe?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 12,
+    "text": "Which brush-on sunscreen is safe for the ocean?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 13,
+    "text": "Which brush-on sunscreens have SPF 30 and SPF 50",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 14,
+    "text": "Which brush-on sunscreens last longest?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 15,
+    "text": "Which brush-on sunscreens are good for kids?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 16,
+    "text": "Which powder sunscreens are safe for children?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 17,
+    "text": "Which brush-on sunscreens don't leave a white cast?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 18,
+    "text": "Which brush-on sunscreens have shades and which should I get?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 19,
+    "text": "Which brush-on sunscreens have niacinamide?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 20,
+    "text": "Which brush-on sunscreens are TSA approved?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 21,
+    "text": "Which brush-on sunscreens are  travel friendly?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 22,
+    "text": "Which brush on sunscreens are best for sports?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 23,
+    "text": "Which brush on sunscreens are water resistant?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 24,
+    "text": "Best mineral powder sunscreen",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 25,
+    "text": "Best powder sunscreen",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  },
+  {
+    "num": 26,
+    "text": "What is the best powder sunscreen for daily use?",
+    "platforms": ["Claude", "ChatGPT", "Google AI", "Perplexity"]
+  }
+]

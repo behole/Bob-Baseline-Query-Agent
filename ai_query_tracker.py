@@ -9,6 +9,7 @@ import json
 from datetime import datetime
 from typing import List, Dict, Optional
 import time
+import argparse
 
 # API Clients
 import anthropic
@@ -581,15 +582,27 @@ class AIQueryTracker:
 
 def main():
     """Main entry point"""
+    parser = argparse.ArgumentParser(description='AI Query Tracker - Track brand mentions across AI platforms')
+    parser.add_argument('--queries', '-q',
+                        default='queries.json',
+                        help='Path to queries JSON file (default: queries.json)')
+    parser.add_argument('--config', '-c',
+                        default='config.json',
+                        help='Path to config JSON file (default: config.json)')
+    parser.add_argument('--run-name', '-r',
+                        help='Custom name for this run (default: auto-generated timestamp)')
+
+    args = parser.parse_args()
+
     # Initialize tracker
-    tracker = AIQueryTracker('config.json')
-    
+    tracker = AIQueryTracker(args.config)
+
     # Load queries from file
-    with open('queries.json', 'r') as f:
+    with open(args.queries, 'r') as f:
         queries = json.load(f)
-    
+
     # Run batch
-    tracker.run_batch(queries)
+    tracker.run_batch(queries, run_name=args.run_name)
 
 
 if __name__ == '__main__':

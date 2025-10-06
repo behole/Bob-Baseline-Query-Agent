@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brush On Block - AI Visibility Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .header .date {
+            margin-top: 10px;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .metric-card.positive {
+            border-left-color: #10b981;
+        }
+        
+        .metric-card.negative {
+            border-left-color: #ef4444;
+        }
+        
+        .metric-card.neutral {
+            border-left-color: #f59e0b;
+        }
+        
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .metric-card.positive .metric-value {
+            color: #10b981;
+        }
+        
+        .metric-card.negative .metric-value {
+            color: #ef4444;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .platform-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .platform-name {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .platform-stat {
+            font-size: 0.9em;
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .list-item {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-item-name {
+            font-weight: 500;
+        }
+        
+        .list-item-count {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .alert {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            color: #1e40af;
+        }
+        
+        .alert-warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            color: #065f46;
+        }
+        
+        .query-list {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .query-item {
+            padding: 10px;
+            border-left: 3px solid #667eea;
+            margin: 10px 0;
+            background: white;
+            padding-left: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Brush On Block AI Visibility Report</h1>
+            <div class="subtitle">AI Platform Brand Mention Analysis</div>
+            <div class="date">Generated: October 06, 2025 at 07:25 PM</div>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Queries Tracked</div>
+                <div class="metric-value">26</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-label">Total AI Responses</div>
+                <div class="metric-value">104</div>
+            </div>
+            
+            <div class="metric-card positive">
+                <div class="metric-label">BOB Mention Rate</div>
+                <div class="metric-value">52.9%</div>
+            </div>
+            
+            <div class="metric-card positive">
+                <div class="metric-label">Direct Mentions</div>
+                <div class="metric-value">55</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Executive Summary</h2>
+            <p style="margin-bottom: 20px;">
+                This report analyzes Brush On Block's visibility across 4 major AI platforms 
+                (Claude, ChatGPT, Google AI, and Perplexity) based on 26 strategic customer queries.
+            </p>
+            
+            <div class="alert alert-success"><strong>✅ Strong Performance:</strong> BOB is being mentioned in over 30% of relevant queries, indicating good AI visibility.</div>
+            
+            
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Platform Performance</h2>
+            <div class="platform-grid">
+
+                <div class="platform-card">
+                    <div class="platform-name">Perplexity</div>
+                    <div class="platform-stat">Responses: 26</div>
+                    <div class="platform-stat">BOB Mentions: 25</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 96.15384615384616%">
+                            96.2%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-name">Google AI</div>
+                    <div class="platform-stat">Responses: 26</div>
+                    <div class="platform-stat">BOB Mentions: 16</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 61.53846153846154%">
+                            61.5%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-name">ChatGPT</div>
+                    <div class="platform-stat">Responses: 26</div>
+                    <div class="platform-stat">BOB Mentions: 8</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30.76923076923077%">
+                            30.8%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-name">Claude</div>
+                    <div class="platform-stat">Responses: 26</div>
+                    <div class="platform-stat">BOB Mentions: 6</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 23.076923076923077%">
+                            23.1%
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🏆 Top Competitors Mentioned</h2>
+            <p style="margin-bottom: 20px; color: #666;">
+                Brands that appear alongside or instead of BOB in AI responses:
+            </p>
+
+            <div class="list-item">
+                <span class="list-item-name">Supergoop</span>
+                <span class="list-item-count">51 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">Peter Thomas Roth</span>
+                <span class="list-item-count">22 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">EltaMD</span>
+                <span class="list-item-count">8 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">Neutrogena</span>
+                <span class="list-item-count">5 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">ColorScience</span>
+                <span class="list-item-count">3 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">Coola</span>
+                <span class="list-item-count">2 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">Unseen Sunscreen</span>
+                <span class="list-item-count">1 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">Blue Lizard</span>
+                <span class="list-item-count">1 mentions</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">La Roche-Posay</span>
+                <span class="list-item-count">1 mentions</span>
+            </div>
+
+        </div>
+        
+        <div class="section">
+            <h2>📚 Top Cited Sources</h2>
+            <p style="margin-bottom: 20px; color: #666;">
+                Websites and sources that AI platforms reference:
+            </p>
+
+            <div class="list-item">
+                <span class="list-item-name">https://theglowmemo.com/best-powder-sunscreen</span>
+                <span class="list-item-count">17 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://brushonblock.com/products/brush-on-block</span>
+                <span class="list-item-count">13 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://marmurmedical.com/wp-content/uploads/2023/08/Self-Best-Powder-Sunscreens.pdf</span>
+                <span class="list-item-count">12 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://www.colorescience.com/products/sunforgettable-total-protection-brush-on-shield-spf-50</span>
+                <span class="list-item-count">11 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://www.hawaiiantropic.com/products/hawaiian-tropic-mineral-sunscreen-powder-brush-spf-30</span>
+                <span class="list-item-count">8 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://brushonblock.com</span>
+                <span class="list-item-count">7 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://health.clevelandclinic.org/powder-sunscreen</span>
+                <span class="list-item-count">6 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://brushonblock.com/products/brush-on-block-translucent-mineral-powder-sunscreen-spf-50</span>
+                <span class="list-item-count">5 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://brushonblock.com/products/bob-kids-spf-30</span>
+                <span class="list-item-count">3 citations</span>
+            </div>
+
+            <div class="list-item">
+                <span class="list-item-name">https://www.thedermwife.com/blog-2/2018/5/1/brush-on-sunscreens-are-like-icing-on-the-skincare-cake</span>
+                <span class="list-item-count">3 citations</span>
+            </div>
+
+        </div>
+        
+        <div class="section">
+            <h2>✅ Queries Where BOB Is Mentioned</h2>
+            <p style="color: #666; margin-bottom: 15px;">
+                25 queries successfully triggered BOB mentions:
+            </p>
+            <div class="query-list">
+                <div class="query-item">Best mineral powder sunscreen</div>
+                <div class="query-item">Best powder sunscreen</div>
+                <div class="query-item">Best powder sunscreen for reapplication over makeup</div>
+                <div class="query-item">Brush On Block vs Colorescience</div>
+                <div class="query-item">Brush On Block vs Supergoop powder sunscreen</div>
+                <div class="query-item">What is the best powder sunscreen for daily use?</div>
+                <div class="query-item">Which brush on sunscreens are best for sports?</div>
+                <div class="query-item">Which brush on sunscreens are water resistant?</div>
+                <div class="query-item">Which brush-on sunscreen is best for use over makeup?</div>
+                <div class="query-item">Which brush-on sunscreen is reef safe?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for acne-prone skin?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for sensitive skin?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for the ocean?</div>
+                <div class="query-item">Which brush-on sunscreen is the easiest apply?</div>
+                <div class="query-item">Which brush-on sunscreens are  travel friendly?</div>
+                <div style="text-align: center; padding: 10px; color: #666;">...and 10 more</div>
+
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>❌ Queries Where BOB Is NOT Mentioned</h2>
+            <p style="color: #666; margin-bottom: 15px;">
+                24 queries did not mention BOB - optimization opportunities:
+            </p>
+            <div class="query-list">
+                <div class="query-item">Best mineral powder sunscreen</div>
+                <div class="query-item">Best powder sunscreen</div>
+                <div class="query-item">Best powder sunscreen for reapplication over makeup</div>
+                <div class="query-item">Brush-on vs traditional sunscreen - which is better?</div>
+                <div class="query-item">What is the best powder sunscreen for daily use?</div>
+                <div class="query-item">Which brush on sunscreens are best for sports?</div>
+                <div class="query-item">Which brush on sunscreens are water resistant?</div>
+                <div class="query-item">Which brush-on sunscreen is best for use over makeup?</div>
+                <div class="query-item">Which brush-on sunscreen is reef safe?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for acne-prone skin?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for sensitive skin?</div>
+                <div class="query-item">Which brush-on sunscreen is safe for the ocean?</div>
+                <div class="query-item">Which brush-on sunscreen is the easiest apply?</div>
+                <div class="query-item">Which brush-on sunscreens are  travel friendly?</div>
+                <div class="query-item">Which brush-on sunscreens are TSA approved?</div>
+                <div style="text-align: center; padding: 10px; color: #666;">...and 9 more</div>
+
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💡 Recommendations</h2>
+            <div style="line-height: 2;">
+
+                <p><strong>4. Source Diversification:</strong> Get featured on more authoritative sites that AI platforms cite.</p>
+                <p><strong>5. Review Content:</strong> Ensure product information on your website is comprehensive and up-to-date.</p>
+                <p><strong>6. Monitor Regularly:</strong> Run this report weekly to track improvements.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Report generated by BOB AI Query Tracker</p>
+            <p>Data sourced from Claude, ChatGPT, Google AI, and Perplexity</p>
+        </div>
+    </div>
+</body>
+</html>
