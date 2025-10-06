@@ -160,35 +160,44 @@ from ai_query_tracker import AIQueryTracker
 
 tracker = AIQueryTracker('config.json')
 
-# Run a single query
+# Run a single query (creates its own worksheet)
 tracker.run_query(
     query_num=1,
     query_text="What is the best powder sunscreen?",
-    platforms=['Claude', 'ChatGPT']
+    platforms=['Claude', 'ChatGPT'],
+    create_worksheet=True,
+    run_name="October_Test"
 )
 
-# Or run a batch
+# Or run a batch (creates one worksheet for all queries)
 queries = [
     {"num": 1, "text": "Query 1"},
     {"num": 2, "text": "Query 2"}
 ]
-tracker.run_batch(queries)
+tracker.run_batch(queries, run_name="Weekly_Run_Oct_6")
 ```
+
+**Note**: If you don't specify `run_name`, it will auto-generate one with a timestamp.
 
 ---
 
 ## Output
 
 ### Google Sheet
+Each run creates a new worksheet (tab) in your spreadsheet with automatic timestamping.
+
 All responses are automatically logged with:
 - Query number and text
 - Platform name
 - Test date
 - BOB mention detection (auto)
+- Mention context (auto) - how BOB is mentioned
+- Position (auto) - where BOB appears in response
 - Competitors mentioned (auto)
 - Citations/sources (auto)
+- Accuracy (auto) - verification of BOB info
 - Screenshot filename
-- Columns for manual review (Context, Position, Accuracy, Notes)
+- Notes (auto) - sentiment and feature detection
 
 ### Screenshots
 Saved in `screenshots/` folder with naming format:
@@ -210,28 +219,35 @@ Each screenshot includes:
 
 To track changes over time:
 
-1. **Week 1**: Run the script with your queries
-2. **Week 2**: Run again with the same queries - new rows will be added
-3. **Compare**: Use Google Sheets to filter by Query # and see how responses evolved
+1. **Week 1**: Run the script with your queries - creates "Run_2025-10-06_14-30" worksheet
+2. **Week 2**: Run again with the same queries - creates "Run_2025-10-13_14-30" worksheet
+3. **Compare**: Each run is in its own tab, making it easy to compare side-by-side
 
-### Pro Tip: 
-Use Google Sheets filters and pivot tables to:
-- Compare how often BOB is mentioned across platforms
-- Track position changes over time
-- Identify trending competitors
+### Pro Tip:
+Each run creates a new worksheet (tab) with:
+- Automatic timestamp naming (e.g., "Run_2025-10-06_14-30")
+- Formatted headers with gray background
+- All 12 columns pre-configured
+
+Use Google Sheets to:
+- Compare worksheets side-by-side to see how responses changed
+- Track how often BOB is mentioned across platforms and over time
+- Identify trending competitors week-over-week
 - Analyze which platforms cite which sources
 
 ---
 
-## Manual Review Columns
+## Automated Analysis
 
-The script automatically fills most columns, but these require **manual review**:
+All columns are now **automatically populated** with intelligent analysis:
 
-- **E - BOB Mentioned?**: Auto-detected, but may need verification
-- **F - Mention Context**: Review and categorize (Top recommendation, Listed among options, etc.)
-- **G - Position**: Check where BOB appears (1st, 2nd, 3rd, etc.)
-- **J - Accuracy**: Verify if BOB information is correct
-- **L - Notes**: Add any observations
+- **E - BOB Mentioned?**: Auto-detected (Yes/No)
+- **F - Mention Context**: Auto-categorized (Top recommendation, Listed among options, Brief mention, In comparison, etc.)
+- **G - Position**: Auto-detected (Early/Middle/Late with sentence numbers, or list position)
+- **J - Accuracy**: Auto-verified (Accurate, Partially accurate, Review needed, No details provided)
+- **L - Notes**: Auto-generated (Sentiment analysis, competitor counts, feature mentions)
+
+You can still manually override any values if needed, but the system provides a strong starting point for analysis.
 
 ---
 
