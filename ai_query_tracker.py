@@ -29,10 +29,14 @@ import textwrap
 class AIQueryTracker:
     """Main class for tracking AI responses across platforms"""
     
-    def __init__(self, config_path: str = "config.json"):
+    def __init__(self, config_path: str = "config.json", brand_name: str = "Brush On Block"):
         """Initialize with API keys from config file"""
         with open(config_path, 'r') as f:
             self.config = json.load(f)
+
+        # Set brand name for analysis
+        self.brand_name = brand_name
+        self.brand_keywords = self._generate_brand_keywords(brand_name)
         
         # Initialize API clients
         self.anthropic_client = anthropic.Anthropic(
@@ -67,7 +71,25 @@ class AIQueryTracker:
         self.gc = gspread.authorize(creds)
         self.spreadsheet = self.gc.open_by_key(self.config['spreadsheet_id'])
         self.sheet = None  # Will be set when creating a new worksheet for each run
-        
+
+    def _generate_brand_keywords(self, brand_name: str) -> List[str]:
+        """Generate keywords for brand detection"""
+        keywords = [brand_name.lower()]
+
+        # Add common variations
+        # Remove spaces and special characters
+        no_spaces = brand_name.lower().replace(' ', '')
+        if no_spaces != brand_name.lower():
+            keywords.append(no_spaces)
+
+        # Add acronym if multi-word
+        words = brand_name.split()
+        if len(words) > 1:
+            acronym = ''.join([w[0] for w in words]).lower()
+            keywords.append(acronym)
+
+        return keywords
+
     def query_claude(self, query: str) -> Dict:
         """Query Claude API"""
         try:
@@ -234,38 +256,33 @@ class AIQueryTracker:
     
     def analyze_response(self, response: str) -> Dict:
         """
-        Analyze response for BOB mentions, competitors, and context
+        Analyze response for brand mentions, competitors, and context
         Returns comprehensive analysis for automated sheet population
         """
         response_lower = response.lower()
 
-        # Check for BOB mentions
-        bob_keywords = ['brush on block', 'brushonblock', 'bob']
-        bob_mentioned = any(keyword in response_lower for keyword in bob_keywords)
+        # Check for brand mentions
+        brand_mentioned = any(keyword in response_lower for keyword in self.brand_keywords)
 
-        # Common sunscreen brands to look for
-        competitors = [
-            'Supergoop', 'ColorScience', 'Peter Thomas Roth', 'EltaMD',
-            'La Roche-Posay', 'Neutrogena', 'CeraVe', 'Blue Lizard',
-            'Coola', 'Sun Bum', 'Black Girl Sunscreen', 'Unseen Sunscreen'
-        ]
+        # Get competitors based on industry (furniture brands for RH)
+        competitors = self._get_competitors()
 
         mentioned_competitors = [comp for comp in competitors if comp.lower() in response_lower]
 
         # Analyze mention context (Column F)
-        mention_context = self._analyze_mention_context(response, bob_mentioned)
+        mention_context = self._analyze_mention_context(response, brand_mentioned)
 
         # Detect position (Column G)
-        position = self._detect_bob_position(response, bob_mentioned)
+        position = self._detect_brand_position(response, brand_mentioned)
 
         # Verify accuracy (Column J)
-        accuracy = self._verify_bob_accuracy(response, bob_mentioned)
+        accuracy = self._verify_brand_accuracy(response, brand_mentioned)
 
         # Generate automated notes (Column L)
-        notes = self._generate_notes(response, bob_mentioned, mentioned_competitors)
+        notes = self._generate_notes(response, brand_mentioned, mentioned_competitors)
 
         return {
-            'bob_mentioned': 'Yes' if bob_mentioned else 'No',
+            'bob_mentioned': 'Yes' if brand_mentioned else 'No',
             'competitors': ', '.join(mentioned_competitors) if mentioned_competitors else 'None',
             'mention_context': mention_context,
             'position': position,
@@ -273,9 +290,29 @@ class AIQueryTracker:
             'notes': notes
         }
 
-    def _analyze_mention_context(self, response: str, bob_mentioned: bool) -> str:
-        """Analyze how BOB is mentioned in the response (Column F)"""
-        if not bob_mentioned:
+    def _get_competitors(self) -> List[str]:
+        """Get competitor list based on brand"""
+        # Furniture brands (for Restoration Hardware)
+        if any(term in self.brand_name.lower() for term in ['restoration hardware', 'rh']):
+            return [
+                'Pottery Barn', 'West Elm', 'Arhaus', 'Room & Board',
+                'Crate and Barrel', 'CB2', 'Williams Sonoma Home',
+                'Ethan Allen', 'Mitchell Gold', 'Four Hands'
+            ]
+        # Sunscreen brands (for Brush On Block)
+        elif any(term in self.brand_name.lower() for term in ['brush on block', 'bob', 'sunscreen']):
+            return [
+                'Supergoop', 'ColorScience', 'Peter Thomas Roth', 'EltaMD',
+                'La Roche-Posay', 'Neutrogena', 'CeraVe', 'Blue Lizard',
+                'Coola', 'Sun Bum', 'Black Girl Sunscreen', 'Unseen Sunscreen'
+            ]
+        # Default: return empty list
+        else:
+            return []
+
+    def _analyze_mention_context(self, response: str, brand_mentioned: bool) -> str:
+        """Analyze how the brand is mentioned in the response (Column F)"""
+        if not brand_mentioned:
             return 'Not mentioned'
 
         response_lower = response.lower()
@@ -305,20 +342,19 @@ class AIQueryTracker:
 
         return 'General mention'
 
-    def _detect_bob_position(self, response: str, bob_mentioned: bool) -> str:
-        """Detect where BOB appears in the response (Column G)"""
-        if not bob_mentioned:
+    def _detect_brand_position(self, response: str, brand_mentioned: bool) -> str:
+        """Detect where brand appears in the response (Column G)"""
+        if not brand_mentioned:
             return 'N/A'
 
         # Split response into sentences
         import re
         sentences = re.split(r'[.!?]+', response)
 
-        # Find which sentence mentions BOB
-        bob_keywords = ['brush on block', 'brushonblock', 'bob']
+        # Find which sentence mentions the brand
         for idx, sentence in enumerate(sentences):
             sentence_lower = sentence.lower()
-            if any(keyword in sentence_lower for keyword in bob_keywords):
+            if any(keyword in sentence_lower for keyword in self.brand_keywords):
                 total_sentences = len([s for s in sentences if s.strip()])
 
                 # Determine position
@@ -333,7 +369,7 @@ class AIQueryTracker:
         lines = response.split('\n')
         for idx, line in enumerate(lines):
             line_lower = line.lower()
-            if any(keyword in line_lower for keyword in bob_keywords):
+            if any(keyword in line_lower for keyword in self.brand_keywords):
                 # Check if it's in a numbered list
                 if re.match(r'^\s*\d+\s*[.):-]', line):
                     list_num = re.match(r'^\s*(\d+)', line).group(1)
@@ -341,83 +377,75 @@ class AIQueryTracker:
 
         return 'Position unclear'
 
-    def _verify_bob_accuracy(self, response: str, bob_mentioned: bool) -> str:
-        """Verify if BOB information is accurate (Column J)"""
-        if not bob_mentioned:
+    def _verify_brand_accuracy(self, response: str, brand_mentioned: bool) -> str:
+        """Verify if brand information is provided with details (Column J)"""
+        if not brand_mentioned:
             return 'N/A'
 
         response_lower = response.lower()
 
-        # Key BOB facts to check
-        accurate_facts = 0
-        total_facts_mentioned = 0
+        # Generic fact checking - count if specific details are mentioned
+        details_mentioned = 0
 
-        # Check for product type mentions
-        if 'powder' in response_lower or 'mineral' in response_lower:
-            total_facts_mentioned += 1
-            if 'powder' in response_lower:
-                accurate_facts += 1
+        # Check for product/material mentions
+        if any(term in response_lower for term in ['material', 'fabric', 'leather', 'wood', 'quality', 'product', 'powder', 'spf']):
+            details_mentioned += 1
 
-        # Check for SPF mentions
-        if 'spf' in response_lower:
-            total_facts_mentioned += 1
-            # BOB products typically have SPF 30 or higher
-            if any(spf in response_lower for spf in ['spf 30', 'spf 50', 'spf 90']):
-                accurate_facts += 1
+        # Check for price/value mentions
+        if any(term in response_lower for term in ['price', 'cost', 'expensive', 'affordable', 'value', 'worth']):
+            details_mentioned += 1
 
-        # Check for application method
-        if 'brush' in response_lower or 'apply' in response_lower:
-            total_facts_mentioned += 1
-            accurate_facts += 1
+        # Check for features/attributes
+        if any(term in response_lower for term in ['comfort', 'durable', 'style', 'design', 'application', 'apply']):
+            details_mentioned += 1
 
-        # Check for skin type mentions
-        if any(skin_type in response_lower for skin_type in ['oily', 'sensitive', 'all skin']):
-            total_facts_mentioned += 1
-            accurate_facts += 1
+        # Check for specific product names or collections
+        if any(term in response_lower for term in ['collection', 'line', 'cloud', 'sofa', 'couch', 'furniture']):
+            details_mentioned += 1
 
-        # Determine accuracy level
-        if total_facts_mentioned == 0:
+        # Determine detail level
+        if details_mentioned == 0:
             return 'No details provided'
-
-        accuracy_ratio = accurate_facts / total_facts_mentioned
-
-        if accuracy_ratio >= 0.8:
-            return 'Accurate'
-        elif accuracy_ratio >= 0.5:
-            return 'Partially accurate'
+        elif details_mentioned >= 3:
+            return 'Detailed'
+        elif details_mentioned >= 2:
+            return 'Some details'
         else:
-            return 'Review needed'
+            return 'Brief mention only'
 
-    def _generate_notes(self, response: str, bob_mentioned: bool, competitors: List[str]) -> str:
+    def _generate_notes(self, response: str, brand_mentioned: bool, competitors: List[str]) -> str:
         """Generate automated notes (Column L)"""
         notes = []
 
-        if not bob_mentioned:
-            notes.append('BOB not mentioned')
+        if not brand_mentioned:
+            notes.append(f'{self.brand_name} not mentioned')
 
-            # Check if powder sunscreen was mentioned without BOB
-            if 'powder' in response.lower() and 'sunscreen' in response.lower():
-                notes.append('Powder sunscreen discussed but BOB not mentioned')
+            # Check if category was mentioned without the brand
+            response_lower = response.lower()
+            if any(term in response_lower for term in ['furniture', 'sofa', 'couch']):
+                notes.append(f'Category discussed but {self.brand_name} not mentioned')
+            elif 'powder' in response_lower and 'sunscreen' in response_lower:
+                notes.append(f'Category discussed but {self.brand_name} not mentioned')
         else:
             # Analyze sentiment
             response_lower = response.lower()
-            positive_words = ['excellent', 'great', 'best', 'recommend', 'love', 'favorite', 'top']
-            negative_words = ['however', 'but', 'unfortunately', 'limited', 'expensive']
+            positive_words = ['excellent', 'great', 'best', 'recommend', 'love', 'favorite', 'top', 'quality']
+            negative_words = ['however', 'but', 'unfortunately', 'limited', 'expensive', 'overpriced']
 
             if any(word in response_lower for word in positive_words):
                 notes.append('Positive sentiment')
             if any(word in response_lower for word in negative_words):
-                notes.append('Mixed/negative sentiment')
+                notes.append('Mixed/cautionary sentiment')
 
         # Note number of competitors
         if competitors:
             notes.append(f'{len(competitors)} competitors mentioned')
 
-        # Check for specific features mentioned
-        if 'reapplication' in response.lower():
-            notes.append('Reapplication mentioned')
-        if 'travel' in response.lower() or 'portable' in response.lower():
-            notes.append('Portability mentioned')
+        # Check for specific features mentioned (generic)
+        if any(term in response.lower() for term in ['warranty', 'guarantee', 'return']):
+            notes.append('Policy/warranty mentioned')
+        if any(term in response.lower() for term in ['delivery', 'shipping', 'lead time']):
+            notes.append('Delivery/logistics mentioned')
 
         return '; '.join(notes) if notes else 'No special notes'
     
@@ -451,7 +479,7 @@ class AIQueryTracker:
                 'Query Text',
                 'Platform',
                 'Test Date',
-                'BOB Mentioned?',
+                f'{self.brand_name} Mentioned?',
                 'Mention Context',
                 'Position',
                 'Competitors Mentioned',
@@ -591,11 +619,14 @@ def main():
                         help='Path to config JSON file (default: config.json)')
     parser.add_argument('--run-name', '-r',
                         help='Custom name for this run (default: auto-generated timestamp)')
+    parser.add_argument('--brand', '-b',
+                        default='Brush On Block',
+                        help='Brand name to track (default: Brush On Block)')
 
     args = parser.parse_args()
 
     # Initialize tracker
-    tracker = AIQueryTracker(args.config)
+    tracker = AIQueryTracker(args.config, brand_name=args.brand)
 
     # Load queries from file
     with open(args.queries, 'r') as f:

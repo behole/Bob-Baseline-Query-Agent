@@ -1,37 +1,36 @@
 #!/usr/bin/env python3
 """
 Quick Query Runner - Test a single query across platforms
-Usage: python quick_query.py "Your question here"
+Usage: python quick_query.py "Your question here" --brand "Brand Name"
 """
 
 import sys
+import argparse
 from ai_query_tracker import AIQueryTracker
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python quick_query.py \"Your question here\"")
-        print("\nExample:")
-        print('  python quick_query.py "What is the best powder sunscreen?"')
-        sys.exit(1)
-    
-    query_text = sys.argv[1]
-    
-    # Optional: specify platforms as additional arguments
-    if len(sys.argv) > 2:
-        platforms = sys.argv[2:]
-    else:
-        platforms = ['Claude', 'ChatGPT', 'Google AI', 'Perplexity']
-    
+    parser = argparse.ArgumentParser(description='Quick query test across AI platforms')
+    parser.add_argument('query', help='Question to ask')
+    parser.add_argument('--brand', '-b', default='Brush On Block',
+                        help='Brand name to track (default: Brush On Block)')
+    parser.add_argument('--config', '-c', default='config.json',
+                        help='Path to config file (default: config.json)')
+
+    args = parser.parse_args()
+
+    platforms = ['Claude', 'ChatGPT', 'Google AI', 'Perplexity']
+
     print(f"\n🚀 Running quick query across {len(platforms)} platforms...")
-    print(f"Query: {query_text}\n")
-    
-    # Initialize tracker
-    tracker = AIQueryTracker('config.json')
+    print(f"Query: {args.query}")
+    print(f"Tracking brand: {args.brand}\n")
+
+    # Initialize tracker with brand name
+    tracker = AIQueryTracker(args.config, brand_name=args.brand)
     
     # Run the query
     tracker.run_query(
         query_num=999,  # Use 999 for quick tests
-        query_text=query_text,
+        query_text=args.query,
         platforms=platforms
     )
     

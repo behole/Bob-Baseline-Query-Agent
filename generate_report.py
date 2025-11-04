@@ -19,8 +19,8 @@ import argparse
 
 class BOBReportGenerator:
     """Generate SEMrush-style reports from tracking data"""
-    
-    def __init__(self, config_path: str = "config.json", sheet_name: str = None, sheet_names: list = None, figma_url: str = None):
+
+    def __init__(self, config_path: str = "config.json", sheet_name: str = None, sheet_names: list = None, figma_url: str = None, brand_name: str = "Brush On Block"):
         """Initialize with config"""
         with open(config_path, 'r') as f:
             self.config = json.load(f)
@@ -29,6 +29,8 @@ class BOBReportGenerator:
         self.sheet_names = sheet_names
         self.figma_url = figma_url
         self.figma_styles = None
+        self.brand_name = brand_name
+        self.brand_short = self._get_brand_short_name(brand_name)
 
         # Setup Google Sheets
         self.setup_google_sheets()
@@ -36,7 +38,14 @@ class BOBReportGenerator:
         # Setup Figma styles if URL provided
         if self.figma_url:
             self.setup_figma_styles()
-        
+
+    def _get_brand_short_name(self, brand_name: str) -> str:
+        """Generate short name for brand (e.g., 'BOB' for 'Brush On Block', 'RH' for 'Restoration Hardware')"""
+        words = brand_name.split()
+        if len(words) > 1:
+            return ''.join([w[0] for w in words])
+        return brand_name[:3].upper()
+
     def setup_google_sheets(self):
         """Setup Google Sheets API connection"""
         scopes = [
@@ -446,6 +455,31 @@ class BOBReportGenerator:
             print(f"   Found {len(all_data)} rows of data")
             return all_data
     
+    def _categorize_query(self, query_text: str) -> str:
+        """Categorize query as generic, branded, or competitor"""
+        query_lower = query_text.lower()
+        brand_lower = self.brand_name.lower()
+
+        # Check for brand mentions
+        if brand_lower in query_lower or any(word in query_lower for word in brand_lower.split()):
+            return "branded"
+
+        # Check for competitor mentions
+        competitors = self._get_competitor_names()
+        if any(comp.lower() in query_lower for comp in competitors):
+            return "competitor"
+
+        return "generic"
+
+    def _get_competitor_names(self) -> list:
+        """Get competitor list based on brand"""
+        if any(term in self.brand_name.lower() for term in ['restoration hardware', 'rh']):
+            return ['Pottery Barn', 'West Elm', 'Arhaus', 'Room & Board',
+                    'Crate and Barrel', 'CB2', 'Williams Sonoma']
+        elif any(term in self.brand_name.lower() for term in ['brush on block', 'bob']):
+            return ['Supergoop', 'ColorScience', 'Peter Thomas Roth', 'EltaMD']
+        return []
+
     def analyze_data(self, data):
         """Analyze the tracking data"""
         analysis = {
@@ -483,10 +517,13 @@ class BOBReportGenerator:
         unique_queries = set()
         worksheet_queries = defaultdict(set)
 
+        # Construct dynamic column name for brand mentions
+        brand_column = f'{self.brand_name} Mentioned?'
+
         for row in data:
             query_num = row.get('Query #', 0)
             platform = row.get('Platform', '')
-            bob_mentioned = row.get('BOB Mentioned?', 'No')
+            bob_mentioned = row.get(brand_column, 'No')
             position = row.get('Position', 'N/A')
             competitors = row.get('Competitors Mentioned', '')
             sources = row.get('Sources Cited', '')
@@ -612,33 +649,33 @@ class BOBReportGenerator:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brush On Block - AI Visibility Report</title>
+    <title>{self.brand_name} - AI Visibility Report</title>
     <style>{css}</style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔍 Brush On Block AI Visibility Report</h1>
+            <h1>🔍 {self.brand_name} AI Visibility Report</h1>
             <div class="subtitle">AI Platform Brand Mention Analysis</div>
             <div class="date">Generated: {datetime.now().strftime('%B %d, %Y at %I:%M %p')}</div>
         </div>
-        
+
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="metric-label">Total Queries Tracked</div>
                 <div class="metric-value">{analysis['total_queries']}</div>
             </div>
-            
+
             <div class="metric-card">
                 <div class="metric-label">Total AI Responses</div>
                 <div class="metric-value">{total_responses}</div>
             </div>
-            
+
             <div class="metric-card {'positive' if mention_rate > 30 else 'negative' if mention_rate < 15 else 'neutral'}">
-                <div class="metric-label">BOB Mention Rate</div>
+                <div class="metric-label">{self.brand_short} Mention Rate</div>
                 <div class="metric-value">{mention_rate:.1f}%</div>
             </div>
-            
+
             <div class="metric-card positive">
                 <div class="metric-label">Direct Mentions</div>
                 <div class="metric-value">{analysis['bob_mentions']['direct']}</div>
@@ -648,13 +685,13 @@ class BOBReportGenerator:
         <div class="section">
             <h2>📊 Executive Summary</h2>
             <p style="margin-bottom: 20px;">
-                This report analyzes Brush On Block's visibility across {len(analysis['by_platform'])} major AI platforms 
+                This report analyzes {self.brand_name}'s visibility across {len(analysis['by_platform'])} major AI platforms
                 (Claude, ChatGPT, Google AI, and Perplexity) based on {analysis['total_queries']} strategic customer queries.
             </p>
-            
-            {'<div class="alert alert-success"><strong>✅ Strong Performance:</strong> BOB is being mentioned in over 30% of relevant queries, indicating good AI visibility.</div>' if mention_rate > 30 else ''}
-            {'<div class="alert alert-warning"><strong>⚠️ Moderate Performance:</strong> BOB mention rate is between 15-30%. There is room for improvement in AI visibility.</div>' if 15 <= mention_rate <= 30 else ''}
-            {'<div class="alert alert-warning"><strong>🚨 Low Visibility:</strong> BOB is mentioned in less than 15% of queries. Immediate action recommended to improve AI platform visibility.</div>' if mention_rate < 15 else ''}
+
+            {'<div class="alert alert-success"><strong>✅ Strong Performance:</strong> ' + self.brand_short + ' is being mentioned in over 30% of relevant queries, indicating good AI visibility.</div>' if mention_rate > 30 else ''}
+            {'<div class="alert alert-warning"><strong>⚠️ Moderate Performance:</strong> ' + self.brand_short + ' mention rate is between 15-30%. There is room for improvement in AI visibility.</div>' if 15 <= mention_rate <= 30 else ''}
+            {'<div class="alert alert-warning"><strong>🚨 Low Visibility:</strong> ' + self.brand_short + ' is mentioned in less than 15% of queries. Immediate action recommended to improve AI platform visibility.</div>' if mention_rate < 15 else ''}
         </div>
         
         <div class="section">
@@ -668,7 +705,7 @@ class BOBReportGenerator:
                 <div class="platform-card">
                     <div class="platform-name">{platform}</div>
                     <div class="platform-stat">Responses: {perf['total_responses']}</div>
-                    <div class="platform-stat">BOB Mentions: {perf['bob_mentions']}</div>
+                    <div class="platform-stat">{self.brand_short} Mentions: {perf['bob_mentions']}</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: {perf['mention_rate']}%">
                             {perf['mention_rate']:.1f}%
@@ -698,7 +735,7 @@ class BOBReportGenerator:
                     <div class="platform-name">{worksheet}</div>
                     <div class="platform-stat">Queries: {ws_data['total_queries']}</div>
                     <div class="platform-stat">Responses: {ws_data['total_responses']}</div>
-                    <div class="platform-stat">BOB Mentions: {ws_data['bob_mentions']}</div>
+                    <div class="platform-stat">{self.brand_short} Mentions: {ws_data['bob_mentions']}</div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: {ws_data['mention_rate']}%">
                             {ws_data['mention_rate']:.1f}%
@@ -715,7 +752,7 @@ class BOBReportGenerator:
         <div class="section">
             <h2>🏆 Top Competitors Mentioned</h2>
             <p style="margin-bottom: 20px; color: #666;">
-                Brands that appear alongside or instead of BOB in AI responses:
+                Brands that appear alongside or instead of {self.brand_name} in AI responses:
             </p>
 """
         
@@ -784,7 +821,7 @@ class BOBReportGenerator:
         if queries_all_platforms:
             html += f"""
             <div style="margin-bottom: 30px;">
-                <h3 style="color: #10b981; margin-bottom: 15px;">✅ Queries with BOB Mentioned on ALL Platforms ({len(queries_all_platforms)} queries)</h3>
+                <h3 style="color: #10b981; margin-bottom: 15px;">✅ Queries with {self.brand_short} Mentioned on ALL Platforms ({len(queries_all_platforms)} queries)</h3>
                 <div class="query-list">
 """
             for query in sorted(queries_all_platforms)[:10]:
@@ -804,7 +841,7 @@ class BOBReportGenerator:
             <div style="margin-bottom: 30px;">
                 <h3 style="color: #f59e0b; margin-bottom: 15px;">⚠️ Queries with Mixed Results ({len(queries_some_platforms)} queries)</h3>
                 <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">
-                    These queries mention BOB on some platforms but not others - optimization opportunities!
+                    These queries mention {self.brand_short} on some platforms but not others - optimization opportunities!
                 </p>
                 <div class="query-list">
 """
@@ -831,9 +868,9 @@ class BOBReportGenerator:
         if queries_no_platforms:
             html += f"""
             <div style="margin-bottom: 30px;">
-                <h3 style="color: #ef4444; margin-bottom: 15px;">❌ Queries with NO BOB Mentions ({len(queries_no_platforms)} queries)</h3>
+                <h3 style="color: #ef4444; margin-bottom: 15px;">❌ Queries with NO {self.brand_short} Mentions ({len(queries_no_platforms)} queries)</h3>
                 <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">
-                    BOB is not mentioned on any platform for these queries - high priority optimization targets!
+                    {self.brand_short} is not mentioned on any platform for these queries - high priority optimization targets!
                 </p>
                 <div class="query-list">
 """
@@ -859,7 +896,7 @@ class BOBReportGenerator:
         # Dynamic recommendations based on data
         if mention_rate < 20:
             html += """
-                <p><strong>1. Increase Content Marketing:</strong> Create more high-quality content targeting the queries where BOB is not mentioned.</p>
+                <p><strong>1. Increase Content Marketing:</strong> Create more high-quality content targeting the queries where {self.brand_short} is not mentioned.</p>
                 <p><strong>2. Optimize for Generative Engines:</strong> Ensure brushonblock.com content is comprehensive and structured for AI platform indexing.</p>
 """
         
@@ -914,7 +951,7 @@ class BOBReportGenerator:
         print("-"*60)
         print(f"Total Queries: {analysis['total_queries']}")
         print(f"Total Responses: {analysis['total_responses']}")
-        print(f"BOB Mentions: {analysis['bob_mentions']['total']}")
+        print(f"{self.brand_short} Mentions: {analysis['bob_mentions']['total']}")
         print(f"Mention Rate: {(analysis['bob_mentions']['total'] / analysis['total_responses'] * 100):.1f}%")
         print("-"*60 + "\n")
 
@@ -961,6 +998,13 @@ def main():
         help='Figma file URL for design styles (optional)',
         default=None
     )
+    parser.add_argument(
+        '--brand',
+        '-b',
+        type=str,
+        help='Brand name to track (default: Brush On Block)',
+        default='Brush On Block'
+    )
 
     args = parser.parse_args()
 
@@ -969,7 +1013,7 @@ def main():
     if args.sheets:
         sheet_names = [s.strip() for s in args.sheets.split(',')]
 
-    generator = BOBReportGenerator(args.config, sheet_name=args.sheet, sheet_names=sheet_names, figma_url=args.figma_url)
+    generator = BOBReportGenerator(args.config, sheet_name=args.sheet, sheet_names=sheet_names, figma_url=args.figma_url, brand_name=args.brand)
     report_path = generator.generate_report(output_format='html', output_path=args.output)
 
     print("\n" + "="*60)
