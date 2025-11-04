@@ -1,0 +1,17 @@
+# Client Configuration: Test Furniture Co
+brand_name: "Test Furniture Co"
+industry: "furniture"
+
+# Custom keywords (optional - auto-generated if not provided)
+keywords:
+  - "test furniture co"
+
+# Custom competitors (optional - uses industry default if not provided)
+competitors: []
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/test_client"
+  report_branding:
+    primary_color: "#000000"
+    logo_url: ""

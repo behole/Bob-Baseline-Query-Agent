@@ -1,0 +1,21 @@
+# GEO Audit Platform - Python Dependencies
+
+# AI Platform SDKs
+anthropic>=0.18.0
+openai>=1.12.0
+google-genai>=0.2.0
+requests>=2.31.0
+
+# Google Sheets
+gspread>=5.12.0
+google-auth>=2.27.0
+
+# Image Generation
+Pillow>=10.2.0
+
+# CLI & Configuration
+click>=8.1.7
+pyyaml>=6.0.1
+
+# Utilities
+python-dateutil>=2.8.2

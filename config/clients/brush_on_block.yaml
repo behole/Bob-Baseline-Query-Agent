@@ -1,0 +1,30 @@
+# Client Configuration: Brush On Block
+brand_name: "Brush On Block"
+industry: "sunscreen"
+
+# Custom keywords (optional - auto-generated if not provided)
+keywords:
+  - "brush on block"
+  - "brushonblock"
+  - "bob"
+  - "bob sunscreen"
+
+# Custom competitors (optional - uses industry default if not provided)
+competitors:
+  - "Supergoop"
+  - "ColorScience"
+  - "Peter Thomas Roth"
+  - "EltaMD"
+  - "La Roche-Posay"
+  - "Neutrogena"
+  - "CeraVe"
+  - "Blue Lizard"
+  - "Coola"
+  - "Sun Bum"
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/brush_on_block"
+  report_branding:
+    primary_color: "#FF6B6B"
+    logo_url: ""

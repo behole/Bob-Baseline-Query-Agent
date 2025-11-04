@@ -1,0 +1,30 @@
+# Client Configuration: Restoration Hardware
+brand_name: "Restoration Hardware"
+industry: "furniture"
+
+# Custom keywords
+keywords:
+  - "restoration hardware"
+  - "restorationhardware"
+  - "rh"
+  - "rh home"
+
+# Custom competitors
+competitors:
+  - "Pottery Barn"
+  - "West Elm"
+  - "Arhaus"
+  - "Room & Board"
+  - "Crate and Barrel"
+  - "CB2"
+  - "Williams Sonoma Home"
+  - "Ethan Allen"
+  - "Mitchell Gold"
+  - "Four Hands"
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/restoration_hardware"
+  report_branding:
+    primary_color: "#2C2C2C"
+    logo_url: ""
