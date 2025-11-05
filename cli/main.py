@@ -9,6 +9,7 @@ from pathlib import Path
 
 from geo_audit.core.tracker import GEOTracker
 from geo_audit.config.settings import Settings, ClientConfig, load_legacy_config
+from geo_audit.utils.query_generator import QueryGenerator
 
 
 @click.group()
@@ -205,6 +206,83 @@ settings:
 
     click.echo(f"✅ Client config created: {config_path}")
     click.echo(f"📝 Edit the file to customize keywords and competitors")
+
+
+@cli.command()
+@click.option('--client', '-c', required=True, help='Client name')
+@click.option('--output', '-o', required=True, help='Output JSON file path')
+@click.option('--count', '-n', default=50, help='Total number of queries to generate (default: 50)')
+@click.option('--products', '-p', multiple=True, help='Product categories (can specify multiple)')
+@click.option('--config', default='config.json', help='Config file for API keys')
+def generate(client, output, count, products, config):
+    """
+    🤖 Generate queries using AI for a client
+
+    Example:
+        geo-audit generate --client restoration_hardware --output rh_queries.json --count 60 \\
+          --products "outdoor furniture" --products "dining tables" --products "sofas"
+    """
+    click.echo("🤖 AI-Powered Query Generator\n")
+
+    # Load client configuration
+    try:
+        client_config = ClientConfig(client)
+        brand_name = client_config.get_brand_name()
+        industry = client_config.get_industry() or 'general'
+        competitors = client_config.get_competitors()
+    except Exception as e:
+        click.echo(f"❌ Could not load client config: {e}", err=True)
+        click.echo("💡 Run: ./geo-audit init <client> first")
+        return
+
+    # Get product categories
+    if not products:
+        products = click.prompt(
+            "Product categories (comma-separated)",
+            default="products, services"
+        ).split(',')
+        products = [p.strip() for p in products]
+
+    # Load API key
+    try:
+        with open(config, 'r') as f:
+            config_data = json.load(f)
+            api_key = config_data.get('anthropic_api_key')
+            if not api_key:
+                click.echo("❌ Anthropic API key not found in config", err=True)
+                return
+    except Exception as e:
+        click.echo(f"❌ Error loading config: {e}", err=True)
+        return
+
+    click.echo(f"📋 Brand: {brand_name}")
+    click.echo(f"🏭 Industry: {industry}")
+    click.echo(f"📦 Products: {', '.join(products)}")
+    click.echo(f"🎯 Target: {count} queries")
+    click.echo(f"⚔️  Competitors: {len(competitors)} loaded\n")
+
+    # Generate queries
+    try:
+        generator = QueryGenerator(api_key)
+        queries = generator.generate_queries(
+            brand_name=brand_name,
+            industry=industry,
+            product_categories=list(products),
+            competitors=competitors,
+            total_queries=count
+        )
+
+        # Save to file
+        generator.save_to_file(queries, output)
+
+        click.echo(f"\n✅ Success! Generated {len(queries)} queries")
+        click.echo(f"📄 Saved to: {output}")
+        click.echo(f"\n💡 Next step: ./geo-audit track --client {client} --queries {output} --worksheet \"Audit_Name\"")
+
+    except Exception as e:
+        click.echo(f"❌ Error generating queries: {e}", err=True)
+        import traceback
+        traceback.print_exc()
 
 
 @cli.command()
