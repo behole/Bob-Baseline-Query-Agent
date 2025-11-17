@@ -274,50 +274,55 @@ class ComprehensiveGEOReportGenerator:
         recommendations = self._generate_top_recommendations(analysis, overall_rate)
 
         return f"""
-<!-- EXECUTIVE SUMMARY BOX (before sections) -->
-<section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 40px; margin: 40px 0; color: white;">
-    <h2 style="margin: 0 0 30px 0; font-size: 32px; font-weight: 700;">📋 Executive Summary</h2>
-
-    <h3 style="margin-top: 30px;">Performance Snapshot</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
-        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 20px; text-align: center;">
-            <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Overall Visibility</div>
-            <div style="font-size: 48px; font-weight: 700;">{overall_rate:.1f}%</div>
-            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">mention rate</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 20px; text-align: center;">
-            <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Generic Performance</div>
-            <div style="font-size: 48px; font-weight: 700;">{generic_rate:.1f}%</div>
-            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">non-branded queries</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 20px; text-align: center;">
-            <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Best Platform</div>
-            <div style="font-size: 24px; font-weight: 700; margin: 10px 0;">{best_platform[0]}</div>
-            <div style="font-size: 12px; opacity: 0.8;">{best_platform[1]['rate']:.1f}% rate</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 20px; text-align: center;">
-            <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">Market Position</div>
-            <div style="font-size: 20px; font-weight: 700; margin: 15px 0;">{status}</div>
-            <div style="font-size: 12px; opacity: 0.8;">phase</div>
+<!-- EXECUTIVE SUMMARY -->
+<div class="section">
+    <div class="section-header">
+        <div class="section-number">1</div>
+        <div>
+            <div class="section-title">📋 Executive Summary</div>
         </div>
     </div>
 
-    <h3 style="margin-top: 35px;">Key Findings</h3>
+    <h3>Performance Snapshot</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Overall Visibility</div>
+            <div class="stat-value">{overall_rate:.1f}%</div>
+            <div class="stat-description">mention rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Generic Performance</div>
+            <div class="stat-value">{generic_rate:.1f}%</div>
+            <div class="stat-description">non-branded queries</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Best Platform</div>
+            <div class="stat-value" style="font-size: 24px; margin: 20px 0;">{best_platform[0]}</div>
+            <div class="stat-description">{best_platform[1]['rate']:.1f}% rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Market Position</div>
+            <div class="stat-value" style="font-size: 20px; margin: 20px 0;">{status}</div>
+            <div class="stat-description">phase</div>
+        </div>
+    </div>
+
+    <h3>Key Findings</h3>
     <div style="display: grid; gap: 12px; margin: 20px 0;">
 {findings}
     </div>
 
-    <h3 style="margin-top: 35px;">Critical Insights</h3>
+    <h3>Critical Insights</h3>
     <ul style="margin: 20px 0; padding-left: 0; list-style: none;">
 {insights}
     </ul>
 
-    <h3 style="margin-top: 35px;">Top Recommendations</h3>
+    <h3>Top Recommendations</h3>
     <div style="display: grid; gap: 12px;">
 {recommendations}
     </div>
 
-</section>"""
+</div>"""
 
     def _generate_key_findings(self, analysis, overall_rate, generic_rate):
         """Generate key findings with severity levels"""
@@ -367,7 +372,7 @@ class ComprehensiveGEOReportGenerator:
         severity_colors = {
             'Critical': '#EF4444',
             'High': '#F59E0B',
-            'Medium': '#3B82F6',
+            'Medium': '#000000',
             'Low': '#10B981'
         }
         color = severity_colors.get(severity, '#6B7280')
@@ -392,7 +397,7 @@ class ComprehensiveGEOReportGenerator:
             best = max(analysis['platforms'].items(), key=lambda x: x[1]['rate'])
             worst = min(analysis['platforms'].items(), key=lambda x: x[1]['rate'])
             insights.append(f"""
-        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+        <li style="background: #F9FAFB; border-left: 3px solid #000000; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
             <span style="color: #374151; line-height: 1.6;">{best[0]} shows strongest performance at {best[1]['rate']:.1f}%, while {worst[0]} lags at {worst[1]['rate']:.1f}% - platform-specific optimization needed</span>
         </li>""")
 
@@ -400,14 +405,14 @@ class ComprehensiveGEOReportGenerator:
         generic_rate = analysis['by_query_type']['generic']['mention_rate']
         branded_rate = analysis['by_query_type']['branded']['mention_rate']
         insights.append(f"""
-        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+        <li style="background: #F9FAFB; border-left: 3px solid #000000; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
             <span style="color: #374151; line-height: 1.6;">Generic queries ({generic_rate:.1f}%) vs branded queries ({branded_rate:.1f}%) shows {abs(branded_rate - generic_rate):.1f}% gap - AI platforms need better association between brand and use cases</span>
         </li>""")
 
         # Zero mention insight
         if analysis['zero_mention_queries']:
             insights.append(f"""
-        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+        <li style="background: #F9FAFB; border-left: 3px solid #000000; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
             <span style="color: #374151; line-height: 1.6;">Zero-mention queries represent immediate conversion opportunities where targeted content can establish market leadership</span>
         </li>""")
 
@@ -463,7 +468,7 @@ class ComprehensiveGEOReportGenerator:
 
         return f"""
         <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; display: flex; align-items: center; gap: 15px;">
-            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #000000; display: flex; align-items: center; justify-content: center; font-weight: 700;">
                 {num}
             </div>
             <div style="flex: 1;">
@@ -604,7 +609,7 @@ class ComprehensiveGEOReportGenerator:
             insights = self._generate_platform_strategic_insights(platform, perf, analysis)
 
             platform_html += f"""
-    <div style="margin: 40px 0; padding: 30px; background: #F9FAFB; border-radius: 8px; border-left: 4px solid #3B82F6;">
+    <div style="margin: 40px 0; padding: 30px; background: #F9FAFB; border-radius: 8px; border-left: 4px solid #000000;">
         <h4 style="margin: 0 0 20px 0; font-size: 24px; color: #111827;">{platform}</h4>
         <div style="display: grid; gap: 15px;">
 {insights}
@@ -667,9 +672,9 @@ class ComprehensiveGEOReportGenerator:
         formatted = ""
         for i, insight in enumerate(insights, 1):
             formatted += f"""
-            <div style="background: white; padding: 15px 20px; border-radius: 6px; border-left: 3px solid #3B82F6;">
+            <div style="background: white; padding: 15px 20px; border-radius: 6px; border-left: 3px solid #000000;">
                 <div style="display: flex; gap: 12px;">
-                    <div style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #3B82F6; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">
+                    <div style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #000000; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">
                         {i}
                     </div>
                     <div style="flex: 1; color: #374151; font-size: 14px; line-height: 1.6;">
@@ -799,7 +804,7 @@ class ComprehensiveGEOReportGenerator:
         opportunity_cards = ""
         for i, (query, score) in enumerate(top_10, 1):
             priority = "CRITICAL" if score >= 85 else "HIGH" if score >= 70 else "MEDIUM"
-            priority_color = "#EF4444" if priority == "CRITICAL" else "#F59E0B" if priority == "HIGH" else "#3B82F6"
+            priority_color = "#EF4444" if priority == "CRITICAL" else "#F59E0B" if priority == "HIGH" else "#000000"
 
             opportunity_cards += f"""
     <div style="background: white; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 15px 0;">
@@ -1018,49 +1023,49 @@ class ComprehensiveGEOReportGenerator:
         </div>
     </div>
 
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 40px; color: white; margin: 30px 0;">
-        <h3 style="margin: 0 0 20px 0; color: white;">Current vs. Projected Performance</h3>
+    <div style="background: white; border: 2px solid #000000; padding: 40px; margin: 30px 0;">
+        <h3 style="margin: 0 0 20px 0;">Current vs. Projected Performance</h3>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
             <div>
-                <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">CURRENT MENTION RATE</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">CURRENT MENTION RATE</div>
                 <div style="font-size: 48px; font-weight: 700;">{current_rate:.1f}%</div>
             </div>
             <div>
-                <div style="font-size: 14px; opacity: 0.9; margin-bottom: 10px;">PROJECTED (MODERATE SCENARIO)</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">PROJECTED (MODERATE SCENARIO)</div>
                 <div style="font-size: 48px; font-weight: 700; color: #10B981;">{moderate:.1f}%</div>
-                <div style="font-size: 16px; opacity: 0.9; margin-top: 5px;">+{moderate - current_rate:.1f}% improvement</div>
+                <div style="font-size: 16px; margin-top: 5px;">+{moderate - current_rate:.1f}% improvement</div>
             </div>
         </div>
     </div>
 
     <h3>Scenario Analysis</h3>
     <div style="display: grid; gap: 20px; margin: 20px 0;">
-        <div style="background: white; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px;">
+        <div style="background: white; border: 2px solid #000000; padding: 25px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h4 style="margin: 0;">Conservative Scenario</h4>
-                <span style="background: #10B981; color: white; padding: 6px 16px; border-radius: 12px; font-weight: 600;">+{conservative - current_rate:.1f}%</span>
+                <span style="background: #10B981; color: white; padding: 6px 16px; font-weight: 700;">+{conservative - current_rate:.1f}%</span>
             </div>
-            <div style="font-size: 14px; color: #6B7280; line-height: 1.6;">
+            <div style="font-size: 14px; color: #666666; line-height: 1.6;">
                 Implement top 10 zero-mention query content. Timeline: 30-45 days. Minimal resources.
             </div>
         </div>
 
-        <div style="background: white; border: 2px solid #3B82F6; border-radius: 8px; padding: 25px;">
+        <div style="background: white; border: 2px solid #000000; border-left: 6px solid #000000; padding: 25px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h4 style="margin: 0;">Moderate Scenario (Recommended)</h4>
-                <span style="background: #3B82F6; color: white; padding: 6px 16px; border-radius: 12px; font-weight: 600;">+{moderate - current_rate:.1f}%</span>
+                <h4 style="margin: 0;"><strong>Moderate Scenario (Recommended)</strong></h4>
+                <span style="background: #000000; color: white; padding: 6px 16px; font-weight: 700;">+{moderate - current_rate:.1f}%</span>
             </div>
-            <div style="font-size: 14px; color: #6B7280; line-height: 1.6;">
+            <div style="font-size: 14px; color: #666666; line-height: 1.6;">
                 Full content gap analysis implementation + platform-specific optimization. Timeline: 60-90 days.
             </div>
         </div>
 
-        <div style="background: white; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px;">
+        <div style="background: white; border: 2px solid #000000; padding: 25px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h4 style="margin: 0;">Aggressive Scenario</h4>
-                <span style="background: #EF4444; color: white; padding: 6px 16px; border-radius: 12px; font-weight: 600;">+{aggressive - current_rate:.1f}%</span>
+                <span style="background: #DC2626; color: white; padding: 6px 16px; font-weight: 700;">+{aggressive - current_rate:.1f}%</span>
             </div>
-            <div style="font-size: 14px; color: #6B7280; line-height: 1.6;">
+            <div style="font-size: 14px; color: #666666; line-height: 1.6;">
                 Comprehensive content strategy + technical optimization + competitive displacement. Timeline: 90-120 days.
             </div>
         </div>
@@ -1179,7 +1184,7 @@ class ComprehensiveGEOReportGenerator:
         steps_html = '\n'.join([f"                    <li>{step}</li>" for step in steps])
 
         return f"""
-    <div style="background: white; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 20px 0; border-left: 4px solid #3B82F6;">
+    <div style="background: white; border: 2px solid #E5E7EB; border-radius: 8px; padding: 25px; margin: 20px 0; border-left: 4px solid #000000;">
         <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
             <div style="flex: 1;">
                 <div style="font-size: 12px; color: #6B7280; margin-bottom: 5px;">Quick Win #{num}</div>
@@ -1187,7 +1192,7 @@ class ComprehensiveGEOReportGenerator:
                 <p style="margin: 0; color: #6B7280; font-size: 14px; line-height: 1.6;">{description}</p>
             </div>
             <div style="text-align: center; margin-left: 20px; padding: 15px; background: #F9FAFB; border-radius: 8px;">
-                <div style="font-size: 28px; font-weight: 700; color: #3B82F6;">{score}</div>
+                <div style="font-size: 28px; font-weight: 700; color: #000000;">{score}</div>
                 <div style="font-size: 11px; color: #6B7280;">/ 100 SCORE</div>
             </div>
         </div>
@@ -1216,10 +1221,10 @@ class ComprehensiveGEOReportGenerator:
     </div>"""
 
     def _get_css(self):
-        """Return comprehensive CSS matching RH report style"""
+        """Return comprehensive CSS matching RH report style - Clean black/white design"""
         return """
 <style>
-    /* Reset and Base */
+    /* Figma Design System - Exact Specifications */
     * {
         margin: 0;
         padding: 0;
@@ -1227,10 +1232,9 @@ class ComprehensiveGEOReportGenerator:
     }
 
     body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family: 'Helvetica Neue', -apple-system, sans-serif;
         background: #f5f5f5;
-        color: #111827;
-        line-height: 1.6;
+        color: #000000;
     }
 
     .page-wrapper {
@@ -1240,93 +1244,94 @@ class ComprehensiveGEOReportGenerator:
     }
 
     .container {
-        max-width: 1400px;
+        width: 1400px;
         margin: 0 auto;
         padding: 40px;
     }
 
-    /* Header */
+    /* HEADER */
     .report-header {
-        padding: 40px 0;
-        border-bottom: 2px solid #E5E7EB;
-        margin-bottom: 40px;
+        padding: 61px 0 40px;
+        border-bottom: 2px solid #000000;
     }
 
     .brand-title {
-        font-size: 24px;
+        font-size: 19.2px;
         font-weight: 700;
-        letter-spacing: 2px;
+        line-height: 28.8px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         margin-bottom: 10px;
-        color: #111827;
     }
 
     .report-title {
-        font-size: 36px;
+        font-size: 28.8px;
         font-weight: 700;
-        margin-bottom: 15px;
-        color: #111827;
+        line-height: 43.2px;
+        margin-bottom: 12px;
     }
 
     .report-meta {
-        font-size: 14px;
-        color: #6B7280;
-        line-height: 1.8;
+        font-size: 14.4px;
+        line-height: 21.6px;
+        color: #666666;
+        text-align: right;
     }
 
-    /* Sections */
+    /* SECTIONS */
     .section {
-        padding: 50px 0;
-        border-bottom: 2px solid #E5E7EB;
+        padding: 40px 0;
+        border-bottom: 2px solid #000000;
     }
 
     .section-header {
         display: flex;
-        align-items: center;
-        gap: 20px;
+        align-items: baseline;
         margin-bottom: 30px;
     }
 
     .section-number {
-        flex-shrink: 0;
-        width: 50px;
-        height: 50px;
-        background: #111827;
-        color: white;
-        border-radius: 50%;
+        background: #000000;
+        color: #FFFFFF;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
+        font-size: 21px;
         font-weight: 700;
+        margin-right: 20px;
+        flex-shrink: 0;
     }
 
     .section-title {
-        font-size: 32px;
+        font-size: 29.1px;
         font-weight: 700;
-        color: #111827;
+        line-height: 48px;
     }
 
     .section-subtitle {
-        font-size: 16px;
-        color: #6B7280;
-        margin-top: 5px;
+        font-size: 14.4px;
+        line-height: 21.6px;
+        color: #666666;
+        margin-top: 4px;
     }
 
     h3 {
-        font-size: 24px;
+        font-size: 22.4px;
         font-weight: 700;
+        line-height: 33.6px;
         margin: 30px 0 20px;
-        color: #111827;
     }
 
     h4 {
-        font-size: 18px;
+        font-size: 18.4px;
         font-weight: 700;
-        margin: 20px 0 10px;
-        color: #111827;
+        line-height: 28.6px;
+        margin: 0 0 10px;
     }
 
-    /* Stat Cards */
+    /* STAT CARDS */
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -1336,42 +1341,121 @@ class ComprehensiveGEOReportGenerator:
 
     .stat-card {
         background: #FFFFFF;
-        border: 2px solid #E5E7EB;
-        border-radius: 12px;
-        padding: 30px 20px;
+        border: 2px solid #000000;
+        padding: 24px 20px;
         text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .stat-label {
         font-size: 12px;
+        line-height: 18px;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #6B7280;
-        margin-bottom: 15px;
-        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
     }
 
     .stat-value {
-        font-size: 48px;
+        font-size: 72px;
         font-weight: 700;
         line-height: 1;
         margin: 15px 0;
-        color: #111827;
     }
 
     .stat-description {
-        font-size: 13px;
-        color: #6B7280;
-        line-height: 1.5;
+        font-size: 12px;
+        line-height: 18px;
+        color: #666666;
     }
 
-    /* Platform Cards */
+    /* CALLOUTS */
+    .callout {
+        background: #FFFFFF;
+        border: 2px solid #000000;
+        padding: 25px 26px;
+        margin: 30px 0;
+        font-size: 15.8px;
+        line-height: 32px;
+    }
+
+    .callout-critical {
+        background: #FEE2E2;
+        border-color: #DC2626;
+    }
+
+    .callout-warning {
+        background: #FEF3C7;
+        border-color: #F59E0B;
+    }
+
+    .callout-success {
+        background: #D1FAE5;
+        border-color: #10B981;
+    }
+
+    /* TABLES */
+    .table-container {
+        background: #FFFFFF;
+        border: 2px solid #000000;
+        margin: 30px 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table thead {
+        background: #000000;
+        color: #FFFFFF;
+    }
+
+    table th {
+        font-size: 15.9px;
+        font-weight: 700;
+        padding: 16px;
+        text-align: left;
+        border-right: 1px solid #FFFFFF;
+    }
+
+    table th:last-child {
+        border-right: none;
+    }
+
+    table td {
+        font-size: 15.9px;
+        padding: 15.5px 16px;
+        border-right: 1px solid #E0E0E0;
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    table td:last-child {
+        border-right: none;
+    }
+
+    table td.strong {
+        font-weight: 700;
+    }
+
+    .rank-badge {
+        background: #000000;
+        color: #FFFFFF;
+        padding: 5px 15px;
+        display: inline-block;
+        font-size: 14.4px;
+        font-weight: 700;
+    }
+
+    /* STATUS COLORS */
+    .status-critical { color: #DC2626; }
+    .status-warning { color: #F59E0B; }
+    .status-neutral { color: #6B7280; }
+    .status-success { color: #10B981; }
+
+    /* PLATFORM CARDS */
     .platform-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -1381,92 +1465,20 @@ class ComprehensiveGEOReportGenerator:
 
     .platform-card {
         background: #FFFFFF;
-        border: 2px solid #E5E7EB;
-        border-radius: 12px;
-        padding: 30px 20px;
+        border: 2px solid #000000;
+        padding: 31px 27px;
         text-align: center;
+        min-height: 220px;
     }
 
     .platform-name {
-        font-size: 18px;
+        font-size: 19.2px;
         font-weight: 700;
+        line-height: 28.8px;
         margin-bottom: 20px;
-        color: #111827;
     }
 
-    /* Callouts */
-    .callout {
-        background: #F9FAFB;
-        border: 2px solid #E5E7EB;
-        border-radius: 8px;
-        padding: 20px 25px;
-        margin: 25px 0;
-        font-size: 15px;
-        line-height: 1.8;
-    }
-
-    .callout-warning {
-        background: #FFFBEB;
-        border-color: #F59E0B;
-    }
-
-    .callout-critical {
-        background: #FEF2F2;
-        border-color: #EF4444;
-    }
-
-    /* Tables */
-    .table-container {
-        background: #FFFFFF;
-        border: 2px solid #E5E7EB;
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 25px 0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    table thead {
-        background: #111827;
-        color: #FFFFFF;
-    }
-
-    table th {
-        font-size: 14px;
-        font-weight: 700;
-        padding: 16px;
-        text-align: left;
-    }
-
-    table td {
-        font-size: 14px;
-        padding: 16px;
-        border-bottom: 1px solid #E5E7EB;
-    }
-
-    table td.strong {
-        font-weight: 700;
-    }
-
-    .rank-badge {
-        background: #111827;
-        color: #FFFFFF;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    /* Status Colors */
-    .status-critical { color: #EF4444; }
-    .status-warning { color: #F59E0B; }
-    .status-neutral { color: #6B7280; }
-    .status-success { color: #10B981; }
-
-    /* Query List */
+    /* LISTS */
     .query-list {
         list-style: none;
         padding: 0;
@@ -1475,26 +1487,49 @@ class ComprehensiveGEOReportGenerator:
 
     .query-list li {
         background: #FFFFFF;
-        border: 2px solid #E5E7EB;
-        border-radius: 8px;
-        padding: 20px;
-        margin: 12px 0;
-        font-size: 15px;
-        line-height: 1.6;
+        border: 2px solid #000000;
+        padding: 19px 16px;
+        margin: 10px 0;
+        font-size: 15.9px;
+        line-height: 32px;
     }
 
-    /* Footer */
+    /* ACTION ITEMS */
+    .action-item {
+        background: #FFFFFF;
+        border: 2px solid #000000;
+        padding: 25px 26px;
+        margin: 20px 0;
+    }
+
+    .action-item.tier-1 {
+        border-left: 6px solid #DC2626;
+    }
+
+    .action-item.tier-2 {
+        border-left: 6px solid #F59E0B;
+    }
+
+    .action-item.tier-3 {
+        border-left: 6px solid #10B981;
+    }
+
+    /* FOOTER */
     .footer {
         text-align: center;
-        padding: 40px 20px;
-        color: #6B7280;
-        font-size: 14px;
-        border-top: 2px solid #E5E7EB;
-        margin-top: 50px;
+        padding: 40px;
+        font-size: 14.4px;
+        color: #666666;
+        border-top: 2px solid #000000;
     }
 
-    /* Responsive */
-    @media (max-width: 1200px) {
+    /* RESPONSIVE */
+    @media (max-width: 1400px) {
+        .container {
+            width: 100%;
+            padding: 40px 20px;
+        }
+
         .stats-grid,
         .platform-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -1508,9 +1543,9 @@ class ComprehensiveGEOReportGenerator:
         }
 
         .section-number {
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
         }
 
         .section-title {
