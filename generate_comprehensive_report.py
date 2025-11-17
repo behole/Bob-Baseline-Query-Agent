@@ -219,12 +219,17 @@ class ComprehensiveGEOReportGenerator:
 <div class="container">
 
 <!-- HEADER -->
-<header class="report-header">
-    <div class="brand-title">{self.brand_name.upper()} × WATERMELON GHOST</div>
-    <div class="report-title">Comprehensive GEO Audit Report</div>
-    <div class="report-meta">
-        <strong>Report Date:</strong> {datetime.now().strftime('%B %d, %Y')}<br>
-        <strong>Analysis Period:</strong> {analysis['total_queries']} Queries × 4 Platforms = {analysis['total_responses']} Total Responses
+<header class="report-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="flex: 1;">
+        <div class="brand-title" style="margin-bottom: 8px;">{self.brand_name.upper()} × WATERMELON GHOST</div>
+        <div class="report-title" style="margin-bottom: 16px;">Comprehensive GEO Audit Report</div>
+        <div class="report-meta">
+            <strong>Report Date:</strong> {datetime.now().strftime('%B %d, %Y')}<br>
+            <strong>Analysis Period:</strong> {analysis['total_queries']} Queries × 4 Platforms = {analysis['total_responses']} Total Responses
+        </div>
+    </div>
+    <div style="flex-shrink: 0; margin-left: 40px;">
+        <img src="watermelon_ghost_logo.png" alt="Watermelon Ghost" style="height: 80px; width: auto;">
     </div>
 </header>
 
@@ -510,13 +515,13 @@ class ComprehensiveGEOReportGenerator:
         </div>"""
 
         return f"""
-<!-- SECTION 1: OVERALL PERFORMANCE -->
+<!-- SECTION 2: OVERALL PERFORMANCE -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">1</div>
+        <div class="section-number">2</div>
         <div>
-            <div class="section-title">📊 Executive Summary</div>
-            <div class="section-subtitle">Overall Performance Analysis</div>
+            <div class="section-title">📊 Overall Performance</div>
+            <div class="section-subtitle">Visibility Metrics & Share of Voice</div>
         </div>
     </div>
 
@@ -617,10 +622,10 @@ class ComprehensiveGEOReportGenerator:
     </div>"""
 
         return f"""
-<!-- SECTION 2: PLATFORM INSIGHTS -->
+<!-- SECTION 3: PLATFORM INSIGHTS -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">2</div>
+        <div class="section-number">3</div>
         <div>
             <div class="section-title">🧠 Platform Insights</div>
             <div class="section-subtitle">Strategic Analysis by AI Platform</div>
@@ -702,7 +707,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 3: ZERO-MENTION QUERIES -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">3</div>
+        <div class="section-number">4</div>
         <div>
             <div class="section-title">🎯 Zero-Mention Generic Queries</div>
             <div class="section-subtitle">{len(analysis['zero_mention_queries'])} Queries with Zero {self.brand_short} Mentions Across All Platforms</div>
@@ -767,7 +772,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 4: CONTENT GAP ANALYSIS -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">4</div>
+        <div class="section-number">5</div>
         <div>
             <div class="section-title">📊 Content Gap Analysis</div>
             <div class="section-subtitle">Categorized Opportunities by Content Type</div>
@@ -844,7 +849,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 5: HIGH-VALUE OPPORTUNITIES -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">5</div>
+        <div class="section-number">6</div>
         <div>
             <div class="section-title">🎯 Top 10 High-Value Query Opportunities</div>
             <div class="section-subtitle">Ranked by Strategic Impact Score (100-Point System)</div>
@@ -903,7 +908,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 6: COMPETITIVE SHARE OF VOICE -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">6</div>
+        <div class="section-number">7</div>
         <div>
             <div class="section-title">🏆 Competitive Share of Voice Analysis</div>
             <div class="section-subtitle">Brand Mention Distribution Across Platforms</div>
@@ -991,7 +996,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 7: DISPLACEMENT OPPORTUNITIES -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">7</div>
+        <div class="section-number">8</div>
         <div>
             <div class="section-title">⚔️ Competitive Displacement Opportunities</div>
             <div class="section-subtitle">Top 12 Queries Where Competitors Dominate</div>
@@ -1016,7 +1021,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 8: PROJECTED IMPACT -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">8</div>
+        <div class="section-number">9</div>
         <div>
             <div class="section-title">📈 Projected Impact Analysis</div>
             <div class="section-subtitle">Expected ROI from Strategic Optimization</div>
@@ -1135,7 +1140,7 @@ class ComprehensiveGEOReportGenerator:
 <!-- SECTION 9: ACTION PLAN -->
 <section class="section">
     <div class="section-header">
-        <div class="section-number">9</div>
+        <div class="section-number">10</div>
         <div>
             <div class="section-title">🎯 Strategic Action Plan</div>
             <div class="section-subtitle">Prioritized Implementation Roadmap</div>
