@@ -1556,6 +1556,38 @@ class ComprehensiveGEOReportGenerator:
         .section-title {
             font-size: 24px;
         }
+
+        .report-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .report-header > div:last-child {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-top: 20px !important;
+            text-align: left !important;
+        }
+
+        .report-header > div:last-child img {
+            margin-left: 0 !important;
+            margin-bottom: 16px !important;
+        }
+
+        .brand-title {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .report-title {
+            font-size: 24px;
+            line-height: 32px;
+        }
+
+        .report-meta {
+            text-align: left !important;
+            font-size: 13px;
+        }
     }
 </style>"""
 
