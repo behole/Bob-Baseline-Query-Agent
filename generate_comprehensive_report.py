@@ -221,15 +221,15 @@ class ComprehensiveGEOReportGenerator:
 <!-- HEADER -->
 <header class="report-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
     <div style="flex: 1;">
-        <div class="brand-title" style="margin-bottom: 8px;">{self.brand_name.upper()} × WATERMELON GHOST</div>
-        <div class="report-title" style="margin-bottom: 16px;">Comprehensive GEO Audit Report</div>
-        <div class="report-meta">
+        <div class="brand-title">{self.brand_name.upper()} × WATERMELON GHOST</div>
+        <div class="report-title">Comprehensive GEO Audit Report</div>
+    </div>
+    <div style="flex-shrink: 0; text-align: right;">
+        <img src="watermelon_ghost_logo.png" alt="Watermelon Ghost" style="height: 80px; width: auto; display: block; margin-left: auto; margin-bottom: 12px;">
+        <div class="report-meta" style="text-align: right;">
             <strong>Report Date:</strong> {datetime.now().strftime('%B %d, %Y')}<br>
             <strong>Analysis Period:</strong> {analysis['total_queries']} Queries × 4 Platforms = {analysis['total_responses']} Total Responses
         </div>
-    </div>
-    <div style="flex-shrink: 0; margin-left: 40px;">
-        <img src="watermelon_ghost_logo.png" alt="Watermelon Ghost" style="height: 80px; width: auto;">
     </div>
 </header>
 
