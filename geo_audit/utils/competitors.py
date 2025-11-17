@@ -23,6 +23,51 @@ COMPETITOR_DB = {
         'CeraVe', 'Cetaphil', 'La Roche-Posay', 'Neutrogena',
         'The Ordinary', 'Paula\'s Choice', 'Drunk Elephant',
         'Skinceuticals', 'Sunday Riley', 'Glossier'
+    ],
+    'athletic wear': [
+        'Adidas', 'Under Armour', 'Lululemon', 'Puma',
+        'Reebok', 'New Balance', 'Asics', 'Brooks',
+        'On Running', 'Hoka', 'Saucony', 'Gymshark'
+    ],
+    'fashion': [
+        'Zara', 'H&M', 'Uniqlo', 'Gap', 'Nordstrom',
+        'Banana Republic', 'J.Crew', 'Madewell', 'Everlane'
+    ],
+    'electronics': [
+        'Samsung', 'LG', 'Sony', 'Dell', 'HP',
+        'Lenovo', 'Asus', 'Acer', 'Microsoft', 'Google'
+    ],
+    'food and beverage': [
+        'Coca-Cola', 'Pepsi', 'Nestle', 'Kraft', 'General Mills',
+        'Kellogg\'s', 'Mars', 'Hershey\'s', 'Mondelez'
+    ],
+    'automotive': [
+        'Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla',
+        'BMW', 'Mercedes-Benz', 'Audi', 'Nissan', 'Hyundai'
+    ],
+    'healthcare': [
+        'CVS', 'Walgreens', 'Kaiser', 'UnitedHealth',
+        'Anthem', 'Cigna', 'Humana', 'Aetna'
+    ],
+    'travel': [
+        'Expedia', 'Booking.com', 'Airbnb', 'Marriott',
+        'Hilton', 'Hyatt', 'Delta', 'United', 'American Airlines'
+    ],
+    'real estate': [
+        'Zillow', 'Redfin', 'Realtor.com', 'Compass',
+        'Keller Williams', 'RE/MAX', 'Century 21', 'Coldwell Banker'
+    ],
+    'financial services': [
+        'Chase', 'Bank of America', 'Wells Fargo', 'Citibank',
+        'Capital One', 'American Express', 'Discover', 'PayPal'
+    ],
+    'education': [
+        'Coursera', 'Udemy', 'Khan Academy', 'Skillshare',
+        'LinkedIn Learning', 'Masterclass', 'edX', 'Pluralsight'
+    ],
+    'entertainment': [
+        'Netflix', 'Disney+', 'Hulu', 'HBO Max', 'Amazon Prime',
+        'Apple TV+', 'Paramount+', 'Peacock', 'Spotify', 'YouTube'
     ]
 }
 

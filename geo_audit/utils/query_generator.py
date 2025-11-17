@@ -175,7 +175,10 @@ class QueryGenerator:
         count: int
     ) -> List[str]:
         """Generate generic (non-branded) queries"""
-        prompt = f"""Generate {count} natural, conversational search queries for the {industry} industry. These should be generic questions people would ask without mentioning any specific brand.
+        # Request 20% more to account for parsing/blank lines
+        request_count = int(count * 1.2) + 5
+
+        prompt = f"""Generate EXACTLY {request_count} natural, conversational search queries for the {industry} industry. These should be generic questions people would ask without mentioning any specific brand.
 
 Product categories to focus on: {', '.join(product_categories)}
 
@@ -189,23 +192,41 @@ Requirements:
   - Problem-solving queries
   - Comparison queries (category-level, not brand)
 - Lowercase, conversational tone
-- No numbering, just the queries
+- CRITICAL: Output ONLY the queries, one per line, no numbering, no extra text
 
 Example format:
 what's the best outdoor furniture for coastal climates
 how to choose a durable sofa that lasts
 where to buy quality leather furniture
 
-Now generate {count} queries:"""
+Now generate EXACTLY {request_count} queries (one per line):"""
 
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt}]
         )
 
         queries = response.content[0].text.strip().split('\n')
-        queries = [q.strip() for q in queries if q.strip()]
+        queries = [q.strip() for q in queries if q.strip() and len(q.strip()) > 10]
+
+        # If we still don't have enough, try again once
+        if len(queries) < count:
+            print(f"   ⚠️  Only got {len(queries)} queries, retrying for more...")
+            additional_needed = count - len(queries) + 5
+            prompt2 = f"""Generate {additional_needed} MORE unique natural search queries for the {industry} industry.
+Product categories: {', '.join(product_categories)}
+Output ONLY the queries, one per line, no numbering."""
+
+            response2 = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt2}]
+            )
+            more_queries = response2.content[0].text.strip().split('\n')
+            more_queries = [q.strip() for q in more_queries if q.strip() and len(q.strip()) > 10]
+            queries.extend(more_queries)
+
         return queries[:count]
 
     def _generate_branded_queries(
@@ -215,7 +236,9 @@ Now generate {count} queries:"""
         count: int
     ) -> List[str]:
         """Generate branded queries (mention the brand)"""
-        prompt = f"""Generate {count} natural search queries that specifically mention "{brand_name}".
+        request_count = int(count * 1.2) + 5
+
+        prompt = f"""Generate EXACTLY {request_count} natural search queries that specifically mention "{brand_name}".
 
 Product categories: {', '.join(product_categories)}
 
@@ -229,23 +252,40 @@ Requirements:
   - Product-specific questions
 - Natural, conversational language
 - Lowercase
-- No numbering
+- CRITICAL: Output ONLY the queries, one per line, no numbering
 
 Example format:
 does restoration hardware furniture last
 is restoration hardware worth the price
 how to care for restoration hardware leather sofas
 
-Now generate {count} queries for {brand_name}:"""
+Now generate EXACTLY {request_count} queries for {brand_name} (one per line):"""
 
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt}]
         )
 
         queries = response.content[0].text.strip().split('\n')
-        queries = [q.strip() for q in queries if q.strip()]
+        queries = [q.strip() for q in queries if q.strip() and len(q.strip()) > 10]
+
+        if len(queries) < count:
+            print(f"   ⚠️  Only got {len(queries)} branded queries, retrying for more...")
+            additional_needed = count - len(queries) + 5
+            prompt2 = f"""Generate {additional_needed} MORE unique search queries for "{brand_name}".
+Product categories: {', '.join(product_categories)}
+Output ONLY the queries, one per line, no numbering."""
+
+            response2 = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt2}]
+            )
+            more_queries = response2.content[0].text.strip().split('\n')
+            more_queries = [q.strip() for q in more_queries if q.strip() and len(q.strip()) > 10]
+            queries.extend(more_queries)
+
         return queries[:count]
 
     def _generate_competitor_queries(
@@ -258,8 +298,9 @@ Now generate {count} queries for {brand_name}:"""
         if not competitors:
             return []
 
+        request_count = int(count * 1.2) + 5
         competitor_list = ', '.join(competitors)
-        prompt = f"""Generate {count} comparison queries between "{brand_name}" and its competitors: {competitor_list}.
+        prompt = f"""Generate EXACTLY {request_count} comparison queries between "{brand_name}" and its competitors: {competitor_list}.
 
 Requirements:
 - Each query should compare {brand_name} to one competitor
@@ -269,23 +310,40 @@ Requirements:
 - Some quality/feature comparisons
 - Natural, conversational language
 - Lowercase
-- No numbering
+- CRITICAL: Output ONLY the queries, one per line, no numbering
 
 Example format:
 restoration hardware vs pottery barn quality
 is restoration hardware better than west elm
 restoration hardware vs arhaus pricing
 
-Now generate {count} queries:"""
+Now generate EXACTLY {request_count} queries (one per line):"""
 
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt}]
         )
 
         queries = response.content[0].text.strip().split('\n')
-        queries = [q.strip() for q in queries if q.strip()]
+        queries = [q.strip() for q in queries if q.strip() and len(q.strip()) > 10]
+
+        if len(queries) < count:
+            print(f"   ⚠️  Only got {len(queries)} competitor queries, retrying for more...")
+            additional_needed = count - len(queries) + 5
+            prompt2 = f"""Generate {additional_needed} MORE comparison queries for "{brand_name}" vs competitors.
+Competitors: {competitor_list}
+Output ONLY the queries, one per line, no numbering."""
+
+            response2 = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt2}]
+            )
+            more_queries = response2.content[0].text.strip().split('\n')
+            more_queries = [q.strip() for q in more_queries if q.strip() and len(q.strip()) > 10]
+            queries.extend(more_queries)
+
         return queries[:count]
 
     def _generate_product_queries(
@@ -295,7 +353,9 @@ Now generate {count} queries:"""
         count: int
     ) -> List[str]:
         """Generate product-specific queries"""
-        prompt = f"""Generate {count} product-specific queries for "{brand_name}".
+        request_count = int(count * 1.2) + 5
+
+        prompt = f"""Generate EXACTLY {request_count} product-specific queries for "{brand_name}".
 
 Product categories: {', '.join(product_categories)}
 
@@ -308,23 +368,40 @@ Requirements:
   - Use case questions
 - Natural language
 - Lowercase
-- No numbering
+- CRITICAL: Output ONLY the queries, one per line, no numbering
 
 Example format:
 where to buy restoration hardware cloud sofa
 how much is restoration hardware dining table
 does restoration hardware have outdoor furniture
 
-Now generate {count} queries:"""
+Now generate EXACTLY {request_count} queries (one per line):"""
 
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt}]
         )
 
         queries = response.content[0].text.strip().split('\n')
-        queries = [q.strip() for q in queries if q.strip()]
+        queries = [q.strip() for q in queries if q.strip() and len(q.strip()) > 10]
+
+        if len(queries) < count:
+            print(f"   ⚠️  Only got {len(queries)} product queries, retrying for more...")
+            additional_needed = count - len(queries) + 5
+            prompt2 = f"""Generate {additional_needed} MORE product-specific queries for "{brand_name}".
+Product categories: {', '.join(product_categories)}
+Output ONLY the queries, one per line, no numbering."""
+
+            response2 = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt2}]
+            )
+            more_queries = response2.content[0].text.strip().split('\n')
+            more_queries = [q.strip() for q in more_queries if q.strip() and len(q.strip()) > 10]
+            queries.extend(more_queries)
+
         return queries[:count]
 
     def _generate_howto_queries(
@@ -334,7 +411,9 @@ Now generate {count} queries:"""
         count: int
     ) -> List[str]:
         """Generate how-to/informational queries"""
-        prompt = f"""Generate {count} how-to and informational queries for the {industry} industry.
+        request_count = int(count * 1.2) + 5
+
+        prompt = f"""Generate EXACTLY {request_count} how-to and informational queries for the {industry} industry.
 
 Product categories: {', '.join(product_categories)}
 
@@ -349,23 +428,40 @@ Requirements:
   - Style tips
 - Natural language
 - Lowercase
-- No numbering
+- CRITICAL: Output ONLY the queries, one per line, no numbering
 
 Example format:
 how to arrange furniture in a large living room
 what is the best way to clean leather furniture
 how to create a cohesive interior design
 
-Now generate {count} queries:"""
+Now generate EXACTLY {request_count} queries (one per line):"""
 
         response = self.client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt}]
         )
 
         queries = response.content[0].text.strip().split('\n')
-        queries = [q.strip() for q in queries if q.strip()]
+        queries = [q.strip() for q in queries if q.strip() and len(q.strip()) > 10]
+
+        if len(queries) < count:
+            print(f"   ⚠️  Only got {len(queries)} how-to queries, retrying for more...")
+            additional_needed = count - len(queries) + 5
+            prompt2 = f"""Generate {additional_needed} MORE how-to queries for the {industry} industry.
+Product categories: {', '.join(product_categories)}
+Output ONLY the queries, one per line, no numbering."""
+
+            response2 = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt2}]
+            )
+            more_queries = response2.content[0].text.strip().split('\n')
+            more_queries = [q.strip() for q in more_queries if q.strip() and len(q.strip()) > 10]
+            queries.extend(more_queries)
+
         return queries[:count]
 
     def save_to_file(self, queries: List[Dict[str, Any]], output_path: str) -> None:
