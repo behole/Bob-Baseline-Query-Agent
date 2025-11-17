@@ -1,0 +1,17 @@
+# Client Configuration: Rivian
+brand_name: "Rivian"
+industry: "general"
+
+# Custom keywords (optional - auto-generated if not provided)
+keywords:
+  - "rivian"
+
+# Custom competitors (optional - uses industry default if not provided)
+competitors: []
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/rivian"
+  report_branding:
+    primary_color: "#000000"
+    logo_url: ""
