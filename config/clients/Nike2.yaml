@@ -1,0 +1,29 @@
+# Client Configuration: Nike
+brand_name: "Nike"
+industry: "athletic wear"
+
+# Custom keywords (auto-generated based on brand)
+keywords:
+  - "nike"
+
+# Competitors for this industry
+competitors:
+  - "Adidas"
+  - "Under Armour"
+  - "Lululemon"
+  - "Puma"
+  - "Reebok"
+  - "New Balance"
+  - "Asics"
+  - "Brooks"
+  - "On Running"
+  - "Hoka"
+  - "Saucony"
+  - "Gymshark"
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/nike2"
+  report_branding:
+    primary_color: "#000000"
+    logo_url: ""

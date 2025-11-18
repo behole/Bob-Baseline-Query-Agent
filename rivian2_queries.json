@@ -1,0 +1,602 @@
+[
+  {
+    "num": 1,
+    "text": "what's the best electric car for daily commuting",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 2,
+    "text": "how to choose an electric vehicle for long road trips",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 3,
+    "text": "where to buy electric cars with good warranties",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 4,
+    "text": "electric car vs gas car running costs comparison",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 5,
+    "text": "how much does it cost to charge an electric car at home",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 6,
+    "text": "what's the range on most electric vehicles today",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 7,
+    "text": "where to find electric car charging stations near me",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 8,
+    "text": "how long does it take to charge an electric car",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 9,
+    "text": "what's the best electric truck for towing",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 10,
+    "text": "electric truck vs diesel truck fuel savings",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 11,
+    "text": "how to install a home charging station for electric cars",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 12,
+    "text": "what are the tax incentives for buying electric vehicles",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 13,
+    "text": "how much does electric car maintenance cost",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 14,
+    "text": "where to buy used electric cars with good battery life",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 15,
+    "text": "what's the difference between hybrid and fully electric cars",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 16,
+    "text": "how cold weather affects electric car battery range",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 17,
+    "text": "what's the best electric car for families with kids",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 18,
+    "text": "how to choose between leasing or buying an electric vehicle",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 19,
+    "text": "where to get electric car repairs and service",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 20,
+    "text": "what's the resale value like for electric vehicles",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 21,
+    "text": "how much weight can electric trucks carry",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 22,
+    "text": "electric car charging costs vs gasoline prices",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 23,
+    "text": "what's the lifespan of electric car batteries",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 24,
+    "text": "how to find reliable electric vehicle dealerships",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 25,
+    "text": "what's the best electric truck for construction work",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 26,
+    "text": "where to buy electric cars with the longest range",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 27,
+    "text": "how to choose an electric car for city driving",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 28,
+    "text": "does rivian have good range for long trips",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 29,
+    "text": "is rivian reliable for daily driving",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 30,
+    "text": "how to charge rivian at home",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 31,
+    "text": "rivian vs tesla truck comparison",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 32,
+    "text": "does rivian r1t handle well off road",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 33,
+    "text": "is rivian stock a good investment",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 34,
+    "text": "how to use rivian camp mode",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 35,
+    "text": "rivian vs ford lightning which is better",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 36,
+    "text": "does rivian have good customer service",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 37,
+    "text": "is rivian available in my state",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 38,
+    "text": "how to reserve a rivian truck",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 39,
+    "text": "rivian r1s vs r1t differences",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 40,
+    "text": "rivian vs toyota reliability",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 41,
+    "text": "is rivian better than honda for electric vehicles",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 42,
+    "text": "rivian vs ford f-150 lightning comparison",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 43,
+    "text": "rivian or chevrolet silverado ev pricing",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 44,
+    "text": "tesla vs rivian which is better",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 45,
+    "text": "rivian vs toyota tundra towing capacity",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 46,
+    "text": "honda ridgeline vs rivian r1t features",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 47,
+    "text": "rivian vs ford electric truck performance",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 48,
+    "text": "is rivian cheaper than chevrolet bolt",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 49,
+    "text": "where can i buy the rivian r1t electric truck",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 50,
+    "text": "how much does the rivian r1s electric suv cost",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 51,
+    "text": "what is the range of the rivian r1t on a single charge",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 52,
+    "text": "does the rivian r1s have third row seating",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 53,
+    "text": "when will the rivian r1t be available for delivery",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 54,
+    "text": "what are the towing capabilities of the rivian r1t truck",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 55,
+    "text": "how to choose the right electric car for long distance driving",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 56,
+    "text": "what is the best way to maintain an electric vehicle battery",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 57,
+    "text": "how to design an efficient home charging station for electric cars",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 58,
+    "text": "best way to maximize range in cold weather electric driving",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 59,
+    "text": "how do I calculate the total cost of ownership for an electric truck",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  },
+  {
+    "num": 60,
+    "text": "what is the difference between fast charging and standard charging",
+    "platforms": [
+      "Claude",
+      "ChatGPT",
+      "Google AI",
+      "Perplexity"
+    ]
+  }
+]

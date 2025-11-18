@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Restoration Hardware × Watermelon Ghost Report</title>
+<style>
+    
+        /* Figma Design System - Exact Specifications */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', -apple-system, sans-serif;
+            background: #f5f5f5;
+            color: #000000;
+        }
+
+        .page-wrapper {
+            background: white;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* HEADER */
+        .report-header {
+            padding: 61px 0 40px;
+            border-bottom: 2px solid #000000;
+        }
+
+        .brand-title {
+            font-size: 19.2px;
+            font-weight: 700;
+            line-height: 28.8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .report-title {
+            font-size: 28.8px;
+            font-weight: 700;
+            line-height: 43.2px;
+            margin-bottom: 12px;
+        }
+
+        .report-meta {
+            font-size: 14.4px;
+            line-height: 21.6px;
+            color: #666666;
+            text-align: right;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 40px 0;
+            border-bottom: 2px solid #000000;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 30px;
+        }
+
+        .section-number {
+            background: #000000;
+            color: #FFFFFF;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 29.1px;
+            font-weight: 700;
+            line-height: 48px;
+        }
+
+        .section-subtitle {
+            font-size: 14.4px;
+            line-height: 21.6px;
+            color: #666666;
+            margin-top: 4px;
+        }
+
+        h3 {
+            font-size: 22.4px;
+            font-weight: 700;
+            line-height: 33.6px;
+            margin: 30px 0 20px;
+        }
+
+        h4 {
+            font-size: 18.4px;
+            font-weight: 700;
+            line-height: 28.6px;
+            margin: 0 0 10px;
+        }
+
+        /* STAT CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 24px 20px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            line-height: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1;
+            margin: 15px 0;
+        }
+
+        .stat-description {
+            font-size: 12px;
+            line-height: 18px;
+            color: #666666;
+        }
+
+        /* CALLOUTS */
+        .callout {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 25px 26px;
+            margin: 30px 0;
+            font-size: 15.8px;
+            line-height: 32px;
+        }
+
+        .callout-critical {
+            background: #FEE2E2;
+            border-color: #DC2626;
+        }
+
+        .callout-warning {
+            background: #FEF3C7;
+            border-color: #F59E0B;
+        }
+
+        .callout-success {
+            background: #D1FAE5;
+            border-color: #10B981;
+        }
+
+        /* TABLES */
+        .table-container {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        table th {
+            font-size: 15.9px;
+            font-weight: 700;
+            padding: 16px;
+            text-align: left;
+            border-right: 1px solid #FFFFFF;
+        }
+
+        table th:last-child {
+            border-right: none;
+        }
+
+        table td {
+            font-size: 15.9px;
+            padding: 15.5px 16px;
+            border-right: 1px solid #E0E0E0;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        table td:last-child {
+            border-right: none;
+        }
+
+        table td.strong {
+            font-weight: 700;
+        }
+
+        .rank-badge {
+            background: #000000;
+            color: #FFFFFF;
+            padding: 5px 15px;
+            display: inline-block;
+            font-size: 14.4px;
+            font-weight: 700;
+        }
+
+        /* STATUS COLORS */
+        .status-critical { color: #DC2626; }
+        .status-warning { color: #F59E0B; }
+        .status-neutral { color: #6B7280; }
+        .status-success { color: #10B981; }
+
+        /* PLATFORM CARDS */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .platform-card {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 31px 27px;
+            text-align: center;
+            min-height: 220px;
+        }
+
+        .platform-name {
+            font-size: 19.2px;
+            font-weight: 700;
+            line-height: 28.8px;
+            margin-bottom: 20px;
+        }
+
+        /* LISTS */
+        .query-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .query-list li {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 19px 16px;
+            margin: 10px 0;
+            font-size: 15.9px;
+            line-height: 32px;
+        }
+
+        /* ACTION ITEMS */
+        .action-item {
+            background: #FFFFFF;
+            border: 2px solid #000000;
+            padding: 25px 26px;
+            margin: 20px 0;
+        }
+
+        .action-item.tier-1 {
+            border-left: 6px solid #DC2626;
+        }
+
+        .action-item.tier-2 {
+            border-left: 6px solid #F59E0B;
+        }
+
+        .action-item.tier-3 {
+            border-left: 6px solid #10B981;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14.4px;
+            color: #666666;
+            border-top: 2px solid #000000;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .container {
+                width: 100%;
+                padding: 40px 20px;
+            }
+
+            .stats-grid,
+            .platform-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .brand-title {
+                font-size: 16px;
+            }
+
+            .report-title {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            .section-title {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            .stat-value {
+                font-size: 48px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .report-header {
+                padding: 30px 0 20px;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+
+            .report-header > div {
+                width: 100% !important;
+                flex: none !important;
+            }
+
+            .report-header img {
+                max-width: 150px !important;
+                margin-top: 20px !important;
+                margin-bottom: 10px !important;
+            }
+
+            .brand-title {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                word-spacing: 2px;
+                line-height: 1.4;
+            }
+
+            .report-title {
+                font-size: 18px;
+                line-height: 1.3;
+                margin-top: 8px;
+            }
+
+            .report-meta {
+                text-align: left !important;
+                font-size: 12px;
+                margin-top: 5px;
+            }
+
+            .section {
+                padding: 30px 0;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-number {
+                margin-bottom: 15px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            h4 {
+                font-size: 16px;
+            }
+
+            .stats-grid,
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .stat-card,
+            .platform-card {
+                min-height: auto;
+                padding: 20px 15px;
+            }
+
+            .stat-value {
+                font-size: 36px;
+            }
+
+            .stat-label,
+            .stat-description {
+                font-size: 11px;
+            }
+
+            .callout,
+            .action-item {
+                padding: 20px 15px;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .query-list li {
+                padding: 15px 12px;
+                font-size: 14px;
+            }
+
+            .table-container {
+                margin: 20px -15px;
+                border-left: none;
+                border-right: none;
+            }
+
+            table th,
+            table td {
+                font-size: 13px;
+                padding: 10px 8px;
+            }
+
+            .rank-badge {
+                padding: 3px 10px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .report-title {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .stats-grid,
+            .platform-grid {
+                gap: 10px;
+            }
+        }
+        
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<div class="container">
+
+<!-- HEADER -->
+<header class="report-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="flex: 1;">
+        <div class="brand-title">RESTORATION HARDWARE × WATERMELON GHOST</div>
+        <div class="report-title">Comprehensive GEO Audit Report</div>
+    </div>
+    <div style="text-align: right;">
+        <!-- Logo placeholder - replace watermelon_ghost_logo.png with your logo file -->
+        <img src="watermelon_ghost_logo.png" alt="Watermelon Ghost" style="max-width: 200px; height: auto; margin-bottom: 10px;" />
+        <div class="report-meta" style="text-align: right;"><strong>Generated:</strong> November 11, 2025</div>
+    </div>
+</header>
+
+<!-- SECTION 0: EXECUTIVE SUMMARY -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">ES</div>
+        <div>
+            <div class="section-title">📋 Executive Summary</div>
+            <div class="section-subtitle">AI-Powered Strategic Overview</div>
+        </div>
+    </div>
+
+    <div class="callout callout-info" >
+        <p style="margin: 0; line-height: 1.7;">Restoration Hardware demonstrates solid generative AI visibility with a 60.8% mention rate across platforms, positioning the brand in a growth opportunity phase with significant untapped potential. While performance varies substantially across platforms—from 73.3% on Google AI to 51.7% on Perplexity—the projected 12.3% improvement potential indicates clear pathways for strategic optimization in the evolving generative search landscape.</p>
+    </div>
+
+    <h3 style="margin-top: 30px;">Performance Snapshot</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Overall Visibility</div>
+            <div class="stat-value">60.8%</div>
+            <div class="stat-description">Brand mention rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Generic Performance</div>
+            <div class="stat-value">31.8%</div>
+            <div class="stat-description">Non-branded queries</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Best Platform</div>
+            <div class="stat-value">Google AI</div>
+            <div class="stat-description">73.3% mention rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Market Position</div>
+            <div class="stat-value">Growth Opportunity</div>
+            <div class="stat-description">8 zero-mention queries</div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 35px;">Key Findings</h3>
+    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="margin: 0; font-size: 15px; color: #111827;">Platform Performance Disparity Creates Strategic Risk</h4>
+                <span style="background: #EF4444; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; margin-left: 10px;">
+                    High
+                </span>
+            </div>
+            <p style="margin: 0; color: #6B7280; font-size: 13px; line-height: 1.6;">A 21.6% performance gap between best (Google AI: 73.3%) and worst (Perplexity: 51.7%) performing platforms indicates inconsistent brand representation across the generative AI ecosystem.</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="margin: 0; font-size: 15px; color: #111827;">Value-Conscious Query Gap Threatens Market Share</h4>
+                <span style="background: #EF4444; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; margin-left: 10px;">
+                    High
+                </span>
+            </div>
+            <p style="margin: 0; color: #6B7280; font-size: 13px; line-height: 1.6;">Poor performance on budget-focused queries like 'quality wood dining tables under $2000' suggests missed opportunities in the value-seeking segment, despite RH's premium positioning.</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="margin: 0; font-size: 15px; color: #111827;">Generic Query Underperformance Limits Discovery</h4>
+                <span style="background: #F59E0B; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; margin-left: 10px;">
+                    Medium
+                </span>
+            </div>
+            <p style="margin: 0; color: #6B7280; font-size: 13px; line-height: 1.6;">31.8% mention rate on generic queries significantly below overall performance indicates reduced visibility during early-stage customer research phases.</p>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <h4 style="margin: 0; font-size: 15px; color: #111827;">Space-Constrained Consumer Queries Underserved</h4>
+                <span style="background: #F59E0B; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; margin-left: 10px;">
+                    Medium
+                </span>
+            </div>
+            <p style="margin: 0; color: #6B7280; font-size: 13px; line-height: 1.6;">Weak presence in queries addressing small space solutions (e.g., 'dining table for small open floor plan') misses key urban demographic trends.</p>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 35px;">Critical Insights</h3>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+
+        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+            <span style="color: #374151; line-height: 1.6;">Platform-specific content optimization is essential as different AI engines prioritize distinct brand signals and content formats</span>
+        </li>
+
+        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+            <span style="color: #374151; line-height: 1.6;">The premium furniture market requires balancing luxury positioning with value communication to capture price-conscious consumers</span>
+        </li>
+
+        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+            <span style="color: #374151; line-height: 1.6;">Generative AI responses favor brands that provide comprehensive product education and space planning guidance</span>
+        </li>
+
+        <li style="background: #F9FAFB; border-left: 3px solid #3B82F6; padding: 15px 20px; margin-bottom: 10px; border-radius: 4px;">
+            <span style="color: #374151; line-height: 1.6;">Zero-mention queries represent immediate conversion opportunities where targeted content can establish market leadership</span>
+        </li>
+    </ul>
+
+    <h3 style="margin-top: 35px;">Top Recommendations</h3>
+    <div style="display: grid; gap: 12px;">
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; display: flex; align-items: center; gap: 15px;">
+            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                1
+            </div>
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">Develop platform-specific content strategies targeting underperforming channels, particularly Perplexity, with emphasis on technical product specifications and comparison data</p>
+            </div>
+            <div style="flex-shrink: 0;">
+                <span style="background: #EF4444; color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap;">
+                    Immediate
+                </span>
+            </div>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; display: flex; align-items: center; gap: 15px;">
+            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                2
+            </div>
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">Create value-positioning content that addresses budget-conscious queries while maintaining premium brand integrity through quality and craftsmanship messaging</p>
+            </div>
+            <div style="flex-shrink: 0;">
+                <span style="background: #EF4444; color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap;">
+                    Immediate
+                </span>
+            </div>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; display: flex; align-items: center; gap: 15px;">
+            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                3
+            </div>
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">Launch comprehensive space planning and product education content hub to capture generic furniture research queries and establish thought leadership</p>
+            </div>
+            <div style="flex-shrink: 0;">
+                <span style="background: #F59E0B; color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap;">
+                    Short-term
+                </span>
+            </div>
+        </div>
+
+        <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; display: flex; align-items: center; gap: 15px;">
+            <div style="flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #3B82F6; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                4
+            </div>
+            <div style="flex: 1;">
+                <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">Implement structured data optimization and technical SEO enhancements to improve AI model content comprehension and citation probability</p>
+            </div>
+            <div style="flex-shrink: 0;">
+                <span style="background: #10B981; color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap;">
+                    Long-term
+                </span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- SECTION 1: OVERALL PERFORMANCE -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">1</div>
+        <div>
+            <div class="section-title">📊 Executive Summary</div>
+            <div class="section-subtitle">Overall Performance Analysis</div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Overall Mention Rate</div>
+            <div class="stat-value">60.8%</div>
+            <div class="stat-description">146 out of 240 total responses</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Generic Query Performance ⭐</div>
+            <div class="stat-value">31.8%</div>
+            <div class="stat-description">KEY METRIC - True competitive position</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Competitive Gap</div>
+            <div class="stat-value">Market Leader</div>
+            <div class="stat-description">Leading the market</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Best Platform</div>
+            <div class="stat-value">Google AI</div>
+            <div class="stat-description">73.3% mention rate</div>
+        </div>
+    </div>
+<div class="callout callout-success"><strong>✅ STRONG PERFORMANCE:</strong> RH mention rate of 60.8% indicates solid AI visibility.</div>
+</section>
+
+<!-- SECTION 2: COMPETITIVE LANDSCAPE -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">2</div>
+        <div>
+            <div class="section-title">Generic Query Competitive Analysis</div>
+            <div class="section-subtitle">{len(analysis['by_query_type']['generic']['queries'])} Non-Branded Queries | The TRUE Market Position</div>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>📌 WHY THIS MATTERS:</strong> Branded queries show AI knows you exist. Generic queries reveal if you're actually recommended. This is where market share is won or lost.
+    </div>
+
+    <h3>Share of Voice Rankings</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Brand</th>
+                    <th>Total Mentions</th>
+                    <th>Mention Rate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td class="strong">Restoration Hardware</td>
+                    <td>146</td>
+                    <td class="strong">60.8%</td>
+                    <td><span class="status-warning">🟡 Your Position</span></td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#2</span></td>
+                    <td class="">West Elm</td>
+                    <td>109</td>
+                    <td class="strong">45.4%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#3</span></td>
+                    <td class="">Pottery Barn</td>
+                    <td>75</td>
+                    <td class="strong">31.2%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td class="">CB2</td>
+                    <td>70</td>
+                    <td class="strong">29.2%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td class="">Room & Board</td>
+                    <td>66</td>
+                    <td class="strong">27.5%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>6</td>
+                    <td class="">Arhaus</td>
+                    <td>33</td>
+                    <td class="strong">13.8%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>7</td>
+                    <td class="">Mitchell Gold</td>
+                    <td>15</td>
+                    <td class="strong">6.2%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>8</td>
+                    <td class="">Ethan Allen</td>
+                    <td>12</td>
+                    <td class="strong">5.0%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>9</td>
+                    <td class="">Crate and Barrel</td>
+                    <td>10</td>
+                    <td class="strong">4.2%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+                <tr>
+                    <td>10</td>
+                    <td class="">Williams Sonoma Home</td>
+                    <td>3</td>
+                    <td class="strong">1.2%</td>
+                    <td><span class="status-neutral">⚪ Following</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Performance by Platform (All Queries)</h3>
+    <div class="platform-grid">
+
+        <div class="platform-card">
+            <div class="platform-name">Google AI</div>
+            <div class="stat-value" style="font-size: 60px;">73.3%</div>
+            <div class="stat-description"><strong>RH Mentions:</strong> 44/60</div>
+            <div class="stat-description status-success" style="margin-top: 15px;">✅ Strong Performance</div>
+        </div>
+
+        <div class="platform-card">
+            <div class="platform-name">ChatGPT</div>
+            <div class="stat-value" style="font-size: 60px;">63.3%</div>
+            <div class="stat-description"><strong>RH Mentions:</strong> 38/60</div>
+            <div class="stat-description status-success" style="margin-top: 15px;">✅ Strong Performance</div>
+        </div>
+
+        <div class="platform-card">
+            <div class="platform-name">Claude</div>
+            <div class="stat-value" style="font-size: 60px;">55.0%</div>
+            <div class="stat-description"><strong>RH Mentions:</strong> 33/60</div>
+            <div class="stat-description status-success" style="margin-top: 15px;">✅ Strong Performance</div>
+        </div>
+
+        <div class="platform-card">
+            <div class="platform-name">Perplexity</div>
+            <div class="stat-value" style="font-size: 60px;">51.7%</div>
+            <div class="stat-description"><strong>RH Mentions:</strong> 31/60</div>
+            <div class="stat-description status-success" style="margin-top: 15px;">✅ Strong Performance</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SECTION 2.5: PLATFORM INSIGHTS -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">2.5</div>
+        <div>
+            <div class="section-title">🧠 Platform Insights</div>
+            <div class="section-subtitle">Strategic Analysis: Why Each Platform Performs Differently</div>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>💡 STRATEGIC VALUE:</strong> Understanding WHY platforms perform differently allows you to optimize content strategy, identify quick wins, and allocate resources effectively.
+    </div>
+
+    <h3>Google AI — 73.3% Mention Rate</h3>
+    <div style="margin: 20px 0;">
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>1.</strong> Google AI's 73.3% mention rate for Restoration Hardware reflects its training emphasis on comprehensive retail databases and e-commerce platforms where RH maintains strong product catalog presence. The platform's ability to access and synthesize information from multiple retail sources gives Restoration Hardware an advantage over competitors who may have weaker digital catalog infrastructure.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>2.</strong> Google AI demonstrates a preference for detailed product specifications, materials information, and design philosophy content that aligns well with Restoration Hardware's luxury positioning and comprehensive product descriptions. RH should leverage this by expanding technical content around craftsmanship details, material sourcing stories, and architectural design principles that Google AI can effectively parse and reference.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>3.</strong> The platform's citation patterns favor authoritative design publications, architectural resources, and established retail databases where Restoration Hardware has cultivated strong editorial relationships over its premium brand history. This suggests RH's investment in high-end design media partnerships and architectural community engagement directly contributes to its superior 73.3% visibility compared to competitors.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>4.</strong> Google AI's technical processing capabilities align favorably with Restoration Hardware's detailed product documentation and specification-heavy content approach, contrasting with more consumer-casual competitors. The platform's ability to understand and reference complex furniture construction details, room planning specifications, and design collection narratives gives RH a structural advantage in query responses.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>5.</strong> The 73.3% performance indicates significant room for optimization, particularly through enhanced presence in design authority publications and expanded technical content creation around sustainability practices and manufacturing processes. Restoration Hardware should prioritize increasing coverage in architectural trade publications and developing more granular product education content that Google AI can effectively utilize for broader furniture category queries.
+        </div>
+
+    </div>
+
+    <h3>ChatGPT — 63.3% Mention Rate</h3>
+    <div style="margin: 20px 0;">
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>1.</strong> **Market Positioning**: ChatGPT's 63.3% mention rate for Restoration Hardware suggests the platform's training data captures the brand's premium market position but may lack comprehensive coverage of recent product launches and seasonal collections. The moderate performance indicates ChatGPT recognizes RH as a significant luxury furniture player, yet trails Google AI's more current data integration by 10 percentage points, suggesting opportunities to enhance visibility through more systematic content distribution across ChatGPT's preferred data sources.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>2.</strong> **Content Opportunities**: ChatGPT demonstrates preference for detailed product specifications and design philosophy content, areas where Restoration Hardware's architectural approach and material sourcing stories could resonate strongly. The platform's tendency to provide comprehensive responses about furniture construction and design heritage aligns well with RH's positioning, suggesting increased investment in technical content about craftsmanship processes and material innovation could improve the current 63.3% visibility rate.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>3.</strong> **Citation Patterns**: Analysis of ChatGPT's furniture recommendations reveals heavy reliance on design publications, architectural digest content, and professional interior design resources rather than direct retail channels. Restoration Hardware's moderate performance suggests limited presence in these editorial sources compared to competitors, indicating a strategic opportunity to increase engagement with design media and architectural publications that ChatGPT frequently references.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>4.</strong> **Technical Depth**: ChatGPT favors detailed explanations of furniture construction, materials science, and design principles over promotional content, which partially explains the 63.3% performance as Restoration Hardware's marketing often emphasizes lifestyle over technical specifications. The platform's preference for educational content about furniture durability, manufacturing processes, and design history suggests RH should develop more technically-oriented content to complement their current aesthetic-focused approach.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>5.</strong> **Growth Potential**: The 63.3% performance represents significant upside potential, as ChatGPT's content preferences align well with Restoration Hardware's premium positioning and craftsmanship focus, yet the brand underperforms relative to Google AI by 10 percentage points. Quick wins include developing technical specification sheets and design process documentation, while long-term growth requires systematic content partnerships with design publications and architectural resources that ChatGPT consistently references for furniture queries.
+        </div>
+
+    </div>
+
+    <h3>Claude — 55.0% Mention Rate</h3>
+    <div style="margin: 20px 0;">
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>1.</strong> **Market Positioning**: Claude's training data appears to emphasize contemporary and accessible furniture brands over luxury positioning, which explains Restoration Hardware's 55.0% performance compared to Google AI's 73.3%. The platform's knowledge base likely contains more frequent mentions of mass-market retailers and design-focused brands rather than high-end furniture purveyors. Restoration Hardware should focus on increasing presence in design publications and architectural content that Claude's training data prioritizes.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>2.</strong> **Content Opportunities**: Claude demonstrates a preference for design-focused and educational content over pure product marketing, suggesting Restoration Hardware's emphasis on lifestyle and aesthetic positioning aligns well with the platform's content preferences. The brand should leverage its strength in interior design education and room styling guides to increase visibility. Creating more technical content about materials, craftsmanship, and design principles could significantly improve Claude's recognition rate from its current 55.0%.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>3.</strong> **Citation Patterns**: Claude typically references design blogs, architectural publications, and home improvement resources rather than luxury retail websites, which disadvantages Restoration Hardware's direct brand visibility. The platform appears to favor sources that discuss furniture in educational or comparative contexts rather than promotional materials. Restoration Hardware should prioritize partnerships with design publications and architectural firms to increase third-party content mentions that Claude's training data captures.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>4.</strong> **Technical Depth**: Claude shows a balanced approach between technical specifications and consumer accessibility in furniture queries, but Restoration Hardware's artisanal positioning may not align with Claude's preference for measurable product attributes. The brand's emphasis on aesthetic and lifestyle positioning rather than technical specifications likely contributes to its below-average 55.0% performance. Developing more content that bridges luxury positioning with concrete product details could improve Claude's recognition patterns.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>5.</strong> **Growth Potential**: Restoration Hardware has significant opportunity to improve beyond 55.0% by increasing presence in design education content and architectural case studies that Claude frequently references. The 17.3 percentage point gap behind Google AI suggests substantial room for improvement through strategic content partnerships and thought leadership in sustainable luxury furniture. Quick wins include collaborating with design schools and architecture firms, while long-term growth requires consistent presence in industry publications that influence AI training datasets.
+        </div>
+
+    </div>
+
+    <h3>Perplexity — 51.7% Mention Rate</h3>
+    <div style="margin: 20px 0;">
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>1.</strong> **Market Positioning**: Perplexity's 51.7% mention rate for Restoration Hardware suggests the platform's training data may underweight luxury furniture content relative to mass-market retailers, as evidenced by stronger performance from competitors like West Elm and Crate and Barrel. The platform appears to prioritize accessible, mid-market furniture sources over high-end specialty retailers, creating a visibility gap for Restoration Hardware's premium positioning.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>2.</strong> **Content Opportunities**: Perplexity demonstrates a preference for content that balances technical product details with practical buying guidance, favoring sources that provide comprehensive product comparisons and specification data. Restoration Hardware should develop more detailed product comparison content and technical specification guides that position their offerings against competitors, as this analytical approach aligns with Perplexity's content processing strengths.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>3.</strong> **Citation Patterns**: Analysis of Perplexity's furniture recommendations indicates heavy reliance on home design publications, consumer review platforms, and retail comparison sites rather than individual brand websites. Restoration Hardware's 51.7% performance suggests limited presence in these third-party sources that Perplexity frequently cites, indicating a need for stronger editorial relationships and review site optimization.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>4.</strong> **Technical Depth**: Perplexity appears to favor moderately technical content that explains furniture construction, materials, and design principles without overwhelming consumers, striking a balance between expertise and accessibility. Restoration Hardware's luxury focus may be too aspirational for Perplexity's preference for practical, educational content, suggesting opportunities to create more informative content about craftsmanship and materials science.
+        </div>
+
+        <div class="callout" style="margin: 15px 0;">
+            <strong>5.</strong> **Growth Potential**: The 21.6 percentage point gap between Perplexity's 51.7% and Google AI's 73.3% performance indicates significant untapped opportunity for Restoration Hardware on the platform. Quick wins include optimizing product descriptions for Perplexity's analytical queries and developing educational content about luxury furniture categories, while long-term success requires building stronger presence in the design publication ecosystem that Perplexity frequently references.
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SECTION 3: CRITICAL QUERIES -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3</div>
+        <div>
+            <div class="section-title">🎯 Zero-Mention Generic Queries</div>
+            <div class="section-subtitle">Highest Priority Optimization Targets</div>
+        </div>
+    </div>
+
+    <p style="margin-bottom: 20px;">These generic queries returned zero RH mentions across all platforms - immediate optimization targets:</p>
+
+    <ul class="query-list">
+        <li>best place for stylish storage solutions</li>
+        <li>coffee table with hidden storage for toys that matches mid century modern decor</li>
+        <li>comfortable sleeper sofas that guests will love</li>
+        <li>how to find dining table that seats eight comfortably in small open floor plan</li>
+        <li>modern coffee tables that look expensive but aren't</li>
+        <li>modern furniture stores with good customer service</li>
+        <li>quality wood dining tables under $2000</li>
+        <li>storage ottoman that doubles as extra seating for small apartment living room</li>
+
+    </ul>
+</section>
+
+<!-- SECTION 3.5: CONTENT GAP ANALYSIS -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3.5</div>
+        <div>
+            <div class="section-title">📊 Content Gap Analysis</div>
+            <div class="section-subtitle">Categorized Opportunities from Zero-Mention Queries</div>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>💡 STRATEGIC APPROACH:</strong> These 8 zero-mention queries represent immediate content opportunities. Each category below shows the query themes where Restoration Hardware is completely absent from AI responses.
+    </div>
+
+    <h3>Content Opportunity Categories</h3>
+    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
+        <div class="stat-card" style="border-left: 6px solid #DC2626;">
+            <div class="stat-label" style="text-transform: uppercase;">Competitive</div>
+            <div class="stat-value" style="font-size: 56px;">4</div>
+            <div class="stat-description">
+                <strong style="color: #DC2626; text-transform: uppercase;">high Priority</strong>
+            </div>
+        </div>
+
+        <div class="stat-card" style="border-left: 6px solid #DC2626;">
+            <div class="stat-label" style="text-transform: uppercase;">Education</div>
+            <div class="stat-value" style="font-size: 56px;">2</div>
+            <div class="stat-description">
+                <strong style="color: #DC2626; text-transform: uppercase;">high Priority</strong>
+            </div>
+        </div>
+
+        <div class="stat-card" style="border-left: 6px solid #F59E0B;">
+            <div class="stat-label" style="text-transform: uppercase;">Use Case</div>
+            <div class="stat-value" style="font-size: 56px;">2</div>
+            <div class="stat-description">
+                <strong style="color: #F59E0B; text-transform: uppercase;">medium Priority</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Category Details & Opportunities</h3>
+
+    <div class="callout callout-critical" style="margin: 25px 0;">
+        <h4 style="margin: 0 0 15px 0;">
+            Competitive <span style="font-weight: normal; color: #666;">(4 queries)</span>
+        </h4>
+        <p style="margin: 0 0 15px 0;"><strong>Opportunity:</strong> Develop content that positions Restoration Hardware against unnamed competitors by highlighting value propositions, quality craftsmanship, and service excellence. These queries represent direct competitive opportunities where RH can showcase their premium positioning and justify their pricing through quality and service differentiation.</p>
+        <details style="margin-top: 10px;">
+            <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">📋 View Queries (4)</summary>
+            <ul style="margin: 10px 0 0 20px; list-style: disc;">
+                <li style="margin: 5px 0;">modern coffee tables that look expensive but aren't</li>
+                <li style="margin: 5px 0;">quality wood dining tables under $2000</li>
+                <li style="margin: 5px 0;">best place for stylish storage solutions</li>
+                <li style="margin: 5px 0;">modern furniture stores with good customer service</li>
+
+            </ul>
+        </details>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 25px 0;">
+        <h4 style="margin: 0 0 15px 0;">
+            Education <span style="font-weight: normal; color: #666;">(2 queries)</span>
+        </h4>
+        <p style="margin: 0 0 15px 0;"><strong>Opportunity:</strong> Create comprehensive guides on space planning and furniture selection for specific room constraints and needs. These educational pieces can position Restoration Hardware as the expert solution while addressing common customer pain points around space optimization.</p>
+        <details style="margin-top: 10px;">
+            <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">📋 View Queries (2)</summary>
+            <ul style="margin: 10px 0 0 20px; list-style: disc;">
+                <li style="margin: 5px 0;">how to find dining table that seats eight comfortably in small open floor plan</li>
+                <li style="margin: 5px 0;">storage ottoman that doubles as extra seating for small apartment living room</li>
+
+            </ul>
+        </details>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 25px 0;">
+        <h4 style="margin: 0 0 15px 0;">
+            Use Case <span style="font-weight: normal; color: #666;">(2 queries)</span>
+        </h4>
+        <p style="margin: 0 0 15px 0;"><strong>Opportunity:</strong> Create scenario-based content that showcases how Restoration Hardware furniture solves specific lifestyle needs and design challenges. These use case articles can demonstrate product versatility and help customers envision RH pieces in their specific living situations.</p>
+        <details style="margin-top: 10px;">
+            <summary style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">📋 View Queries (2)</summary>
+            <ul style="margin: 10px 0 0 20px; list-style: disc;">
+                <li style="margin: 5px 0;">comfortable sleeper sofas that guests will love</li>
+                <li style="margin: 5px 0;">coffee table with hidden storage for toys that matches mid century modern decor</li>
+
+            </ul>
+        </details>
+    </div>
+
+</section>
+
+<!-- SECTION 3.75: HIGH-VALUE QUERY PRIORITIES -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3.75</div>
+        <div>
+            <div class="section-title">🎯 Top 10 High-Value Query Opportunities</div>
+            <div class="section-subtitle">Prioritized by Product Fit, Competitor Opportunity, and Strategic Value</div>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>💡 PRIORITY FRAMEWORK:</strong> These queries are scored on a 100-point scale based on product fit (30 pts), competitor displacement opportunity (30 pts), and strategic/conversion value (40 pts). Focus on high-scoring queries first for maximum ROI.
+    </div>
+
+    <h3>Top Priority Queries</h3>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#1. quality wood dining tables under $2000</h4>
+                <div><span style="background: #10B981; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH FIT</span> <span style="background: #3B82F6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH VALUE</span> <span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">92</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This query represents high purchase intent with a specific budget constraint that RH can address with their entry-level solid wood dining options. RH can create targeted content showcasing their most accessible dining tables while emphasizing superior craftsmanship compared to competitors like West Elm or CB2. Quick win: Create a dedicated landing page featuring RH's sub-$2000 dining tables with financing options.</p>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 20px 0; border-left: 6px solid #F59E0B;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#2. modern coffee tables that look expensive but aren't</h4>
+                <div><span style="background: #10B981; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH FIT</span> <span style="background: #3B82F6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH VALUE</span> <span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">88</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">HIGH</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This query targets budget-conscious consumers seeking luxury aesthetics - perfect for RH's positioning as accessible luxury furniture. RH can capture this audience by highlighting their modern coffee table designs that deliver high-end appearance at competitive price points versus premium competitors like Arhaus. Quick win: Develop content comparing RH's modern coffee tables to higher-priced alternatives.</p>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 20px 0; border-left: 6px solid #F59E0B;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#3. how to find dining table that seats eight comfortably in small open floor plan</h4>
+                <div><span style="background: #10B981; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH FIT</span> <span style="background: #3B82F6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH VALUE</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">85</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">HIGH</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This highly specific query shows strong purchase intent for a significant furniture investment with clear space constraints. RH can leverage their design expertise and space planning services to provide comprehensive solutions that competitors like Crate and Barrel may not offer as thoroughly. Quick win: Create detailed guides featuring RH's extendable and space-efficient large dining tables.</p>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 20px 0; border-left: 6px solid #F59E0B;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#4. best place for stylish storage solutions</h4>
+                <div><span style="background: #10B981; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH FIT</span> <span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">82</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">HIGH</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This broad query allows RH to showcase their comprehensive storage furniture range while positioning against multiple competitors simultaneously. RH can emphasize their design-forward storage solutions that blend functionality with luxury aesthetics better than mass-market competitors. Quick win: Create a storage solutions hub highlighting RH's most popular organizational furniture pieces.</p>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 20px 0; border-left: 6px solid #F59E0B;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#5. comfortable sleeper sofas that guests will love</h4>
+                <div><span style="background: #3B82F6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">HIGH VALUE</span> <span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">79</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">HIGH</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This query indicates purchase intent for a high-value furniture item with specific comfort requirements that align with RH's quality positioning. RH can differentiate from competitors like Pottery Barn by emphasizing superior mattress quality and guest comfort in their sleeper sofa collection. Quick win: Develop content featuring customer testimonials and comfort comparisons for RH sleeper sofas.</p>
+    </div>
+
+    <div class="callout callout-warning" style="margin: 20px 0; border-left: 6px solid #F59E0B;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#6. modern furniture stores with good customer service</h4>
+                <div><span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">76</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">HIGH</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This query allows RH to compete on service differentiation against competitors while attracting customers frustrated with poor service elsewhere. RH can highlight their design services, white-glove delivery, and customer support as competitive advantages over online-focused competitors like West Elm. Quick win: Create service-focused landing pages with customer service guarantees and testimonials.</p>
+    </div>
+
+    <div class="callout callout-neutral" style="margin: 20px 0; border-left: 6px solid #6B7280;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#7. storage ottoman that doubles as extra seating for small apartment living room</h4>
+                <div><span style="background: #8B5CF6; color: white; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-right: 5px;">QUICK WIN</span></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #6B7280;">73</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; font-weight: 700;">MEDIUM</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This specific query targets urban dwellers with space constraints seeking multifunctional furniture - a growing market segment. RH can showcase their dual-purpose ottoman designs while emphasizing quality construction that justifies higher prices versus competitors like CB2. Quick win: Feature RH's most versatile storage ottomans in small space living content.</p>
+    </div>
+
+    <div class="callout callout-neutral" style="margin: 20px 0; border-left: 6px solid #6B7280;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div>
+                <h4 style="margin: 0 0 10px 0;">#8. coffee table with hidden storage for toys that matches mid century modern decor</h4>
+                <div></div>
+            </div>
+            <div style="text-align: right; min-width: 120px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #6B7280;">68</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; font-weight: 700;">MEDIUM</div>
+            </div>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6;"><strong>Opportunity:</strong> This highly specific query targets families seeking stylish yet functional furniture solutions that align with RH's modern aesthetic offerings. RH can position their mid-century inspired coffee tables with storage as superior design alternatives to more obvious family furniture from competitors. Quick win: Create family-friendly furniture collections highlighting RH's storage coffee tables in styled room settings.</p>
+    </div>
+
+</section>
+
+<!-- SECTION 3.8: COMPETITIVE SHARE OF VOICE -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3.8</div>
+        <div>
+            <div class="section-title">🏆 Competitive Share of Voice Analysis</div>
+            <div class="section-subtitle">Head-to-Head Brand Comparison Across All Platforms</div>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>💡 COMPETITIVE INTELLIGENCE:</strong> Understanding where competitors dominate helps prioritize displacement strategies and identify platform-specific opportunities.
+    </div>
+
+    <h3>Overall Competitive Landscape</h3>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: bold; color: #3B82F6;">Restoration Hardware</span>
+            <span style="font-weight: bold;">81.1% (146 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #3B82F6; height: 100%; width: 81.11111111111111%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">West Elm</span>
+            <span style="font-weight: normal;">60.6% (109 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 60.55555555555555%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Pottery Barn</span>
+            <span style="font-weight: normal;">41.7% (75 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 41.66666666666667%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">CB2</span>
+            <span style="font-weight: normal;">38.9% (70 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 38.88888888888889%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Room & Board</span>
+            <span style="font-weight: normal;">36.7% (66 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 36.666666666666664%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Arhaus</span>
+            <span style="font-weight: normal;">18.3% (33 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 18.333333333333332%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Mitchell Gold</span>
+            <span style="font-weight: normal;">8.3% (15 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 8.333333333333332%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Ethan Allen</span>
+            <span style="font-weight: normal;">6.7% (12 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 6.666666666666667%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Crate and Barrel</span>
+            <span style="font-weight: normal;">5.6% (10 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 5.555555555555555%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <span style="font-weight: normal; ">Williams Sonoma Home</span>
+            <span style="font-weight: normal;">1.7% (3 mentions)</span>
+        </div>
+        <div style="background: #E5E7EB; height: 30px; border-radius: 4px; overflow: hidden;">
+            <div style="background: #94A3B8; height: 100%; width: 1.6666666666666667%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <h3>Platform-by-Platform Breakdown</h3>
+
+    <details style="margin: 20px 0; border: 2px solid #E5E7EB; border-radius: 8px; padding: 15px;">
+        <summary style="cursor: pointer; font-weight: bold; font-size: 18px; margin-bottom: 10px;">
+            ChatGPT — Competitive Breakdown
+        </summary>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: bold; color: #3B82F6;">Restoration Hardware</span>
+                <span style="font-weight: bold;">63.3% (38 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #3B82F6; height: 100%; width: 63.33333333333333%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">West Elm</span>
+                <span style="font-weight: normal;">41.7% (25 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 41.66666666666667%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Pottery Barn</span>
+                <span style="font-weight: normal;">30.0% (18 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 30.0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">CB2</span>
+                <span style="font-weight: normal;">21.7% (13 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 21.666666666666668%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Room & Board</span>
+                <span style="font-weight: normal;">20.0% (12 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 20.0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+    </details>
+
+    <details style="margin: 20px 0; border: 2px solid #E5E7EB; border-radius: 8px; padding: 15px;">
+        <summary style="cursor: pointer; font-weight: bold; font-size: 18px; margin-bottom: 10px;">
+            Claude — Competitive Breakdown
+        </summary>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">West Elm</span>
+                <span style="font-weight: normal;">60.0% (36 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 60.0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: bold; color: #3B82F6;">Restoration Hardware</span>
+                <span style="font-weight: bold;">55.0% (33 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #3B82F6; height: 100%; width: 55.00000000000001%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">CB2</span>
+                <span style="font-weight: normal;">48.3% (29 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 48.333333333333336%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Pottery Barn</span>
+                <span style="font-weight: normal;">33.3% (20 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 33.33333333333333%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Room & Board</span>
+                <span style="font-weight: normal;">33.3% (20 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 33.33333333333333%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+    </details>
+
+    <details style="margin: 20px 0; border: 2px solid #E5E7EB; border-radius: 8px; padding: 15px;">
+        <summary style="cursor: pointer; font-weight: bold; font-size: 18px; margin-bottom: 10px;">
+            Perplexity — Competitive Breakdown
+        </summary>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: bold; color: #3B82F6;">Restoration Hardware</span>
+                <span style="font-weight: bold;">51.7% (31 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #3B82F6; height: 100%; width: 51.66666666666667%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Pottery Barn</span>
+                <span style="font-weight: normal;">31.7% (19 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 31.666666666666664%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">West Elm</span>
+                <span style="font-weight: normal;">28.3% (17 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 28.333333333333332%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">Room & Board</span>
+                <span style="font-weight: normal;">23.3% (14 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 23.333333333333332%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+        <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <span style="font-weight: normal; ">CB2</span>
+                <span style="font-weight: normal;">18.3% (11 mentions)</span>
+            </div>
+            <div style="background: #E5E7EB; height: 24px; border-radius: 4px; overflow: hidden;">
+                <div style="background: #94A3B8; height: 100%; width: 18.333333333333332%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+
+    </details>
+
+    <h3>Strategic Insights</h3>
+    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+
+        <div class="stat-card" style="border-left: 6px solid #10B981;">
+            <div class="stat-label">BRAND DOMINANCE</div>
+            <div class="stat-value">2</div>
+            <div class="stat-description">ChatGPT, Perplexity</div>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid #EF4444;">
+            <div class="stat-label">COMPETITOR DOMINANCE</div>
+            <div class="stat-value">0</div>
+            <div class="stat-description">None</div>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid #F59E0B;">
+            <div class="stat-label">COMPETITIVE</div>
+            <div class="stat-value">1</div>
+            <div class="stat-description">Claude</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SECTION 3.9: COMPETITIVE DISPLACEMENT OPPORTUNITIES -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3.9</div>
+        <div>
+            <div class="section-title">⚔️ Competitive Displacement Opportunities</div>
+            <div class="section-subtitle">Top 12 Queries Where Competitors Appear But Restoration Hardware Doesn't</div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical">
+        <strong>🎯 STRATEGIC PRIORITY:</strong> These queries represent immediate displacement opportunities. Competitors are being recommended while your brand is absent — capturing even a fraction of these queries significantly improves competitive positioning.
+    </div>
+
+    <h3>Ranked Displacement Targets</h3>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#1. quality wood dining tables under $2000</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#2. best place for stylish storage solutions</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#3. modern furniture stores with good customer service</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Room & Board, Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#4. comfortable sleeper sofas that guests will love</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Mitchell Gold, Pottery Barn, Room & Board
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#5. modern dining sets alternative to west elm</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Room & Board
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#6. comfortable accent chairs alternative to west elm</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Room & Board, Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#7. modern storage furniture alternative to crate and barrel</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Crate and Barrel, Room & Board
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#8. best sectional sofa for movie nights with kids that hides stains better than pottery barn</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#9. west elm vs crate and barrel leather recliners for tall people with back problems</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, Crate and Barrel
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, ChatGPT, Google AI, Perplexity <span style="color: #666;">(4 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">100</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#10. coffee table with hidden storage for toys that matches mid century modern decor</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2, Room & Board
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, Google AI <span style="color: #666;">(2 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">95</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-critical" style="margin: 20px 0; border-left: 6px solid #DC2626;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#11. modern coffee tables that look expensive but aren't</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> West Elm, CB2
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Claude, Perplexity <span style="color: #666;">(2 platforms)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #DC2626;">80</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #DC2626; font-weight: 700;">CRITICAL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout callout-neutral" style="margin: 20px 0; border-left: 6px solid #6B7280;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+                <h4 style="margin: 0 0 10px 0;">#12. how to find dining table that seats eight comfortably in small open floor plan</h4>
+                <div style="margin: 10px 0;">
+                    <strong>Competing Brands:</strong> Pottery Barn
+                </div>
+                <div style="margin: 10px 0;">
+                    <strong>Platforms:</strong> Perplexity <span style="color: #666;">(1 platform)</span>
+                </div>
+            </div>
+            <div style="text-align: right; min-width: 100px;">
+                <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #6B7280;">45</div>
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; font-weight: 700;">MEDIUM</div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- SECTION 3.95: PROJECTED IMPACT ANALYSIS -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">3.95</div>
+        <div>
+            <div class="section-title">📈 Projected Impact Analysis</div>
+            <div class="section-subtitle">Estimated Visibility Improvements & ROI Projections</div>
+        </div>
+    </div>
+
+    <div class="callout callout-info" style="background: #EFF6FF; border-left-color: #3B82F6;">
+        <strong>💡 STRATEGIC FORECAST:</strong> These projections estimate the visibility improvements achievable by addressing content gaps. Based on moderate optimization efforts, Restoration Hardware could capture 5 additional queries, improving overall mention rates by 12.3%.
+    </div>
+
+    <h3>Current State vs. Projected Impact</h3>
+    <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="stat-card" style="border-left: 6px solid #6B7280;">
+            <div class="stat-label">CURRENT MENTION RATE</div>
+            <div class="stat-value">60.8%</div>
+            <div class="stat-description">8 queries with zero mentions</div>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid #10B981;">
+            <div class="stat-label">PROJECTED MENTION RATE</div>
+            <div class="stat-value">68.3%</div>
+            <div class="stat-description">+12.3% improvement</div>
+        </div>
+    </div>
+
+    <h3>Scenario Analysis</h3>
+    <div style="margin: 20px 0;">
+
+        <div class="callout" style="margin: 15px 0; border-left: 6px solid #F59E0B;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h4 style="margin: 0 0 10px 0;">CONSERVATIVE</h4>
+                    <p style="margin: 0;">Capture 50% of zero-mention queries (4 queries)</p>
+                </div>
+                <div style="text-align: right; min-width: 120px;">
+                    <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #F59E0B;">+9.6%</div>
+                    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #F59E0B; font-weight: 700;">IMPROVEMENT</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout" style="margin: 15px 0; border-left: 6px solid #3B82F6;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h4 style="margin: 0 0 10px 0;">MODERATE (Recommended)</h4>
+                    <p style="margin: 0;">Capture 70% of zero-mention queries (5 queries)</p>
+                </div>
+                <div style="text-align: right; min-width: 120px;">
+                    <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #3B82F6;">+12.3%</div>
+                    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #3B82F6; font-weight: 700;">IMPROVEMENT</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout" style="margin: 15px 0; border-left: 6px solid #10B981;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h4 style="margin: 0 0 10px 0;">AGGRESSIVE</h4>
+                    <p style="margin: 0;">Capture 90% of zero-mention queries (7 queries)</p>
+                </div>
+                <div style="text-align: right; min-width: 120px;">
+                    <div style="font-size: 42px; font-weight: 700; line-height: 1; color: #10B981;">+17.8%</div>
+                    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #10B981; font-weight: 700;">IMPROVEMENT</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Timeline & Value Estimate</h3>
+    <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="stat-card">
+            <div class="stat-label">QUICK WINS</div>
+            <div class="stat-value" style="font-size: 32px;">45-60 days</div>
+            <div class="stat-description">6 high-priority opportunities</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">FULL OPTIMIZATION</div>
+            <div class="stat-value" style="font-size: 32px;">90-120 days</div>
+            <div class="stat-description">Complete visibility transformation</div>
+        </div>
+    </div>
+
+    <div class="callout" style="margin: 25px 0; background: #F0FDF4; border-left-color: #10B981;">
+        <h4 style="margin: 0 0 15px 0;">💰 Expected Value</h4>
+        <ul style="margin: 0; padding-left: 20px; list-style: disc;">
+            <li><strong>Visibility Lift:</strong> +12.3%</li>
+            <li><strong>Query Capture:</strong> 5 of 8 zero-mention queries</li>
+            <li><strong>Competitive Position:</strong> Competitive advantage established</li>
+            <li><strong>High-Value Opportunities:</strong> 6 high-priority queries (75+ score)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SECTION 4: ENHANCED ACTION PLAN -->
+<section class="section">
+    <div class="section-header">
+        <div class="section-number">4</div>
+        <div>
+            <div class="section-title">🎯 Strategic Action Plan</div>
+            <div class="section-subtitle">AI-Powered Recommendations for GEO Optimization</div>
+        </div>
+    </div>
+
+    <div class="callout callout-success" style="background: #F0FDF4; border-left-color: #10B981;">
+        <strong>💡 STRATEGIC APPROACH:</strong> This action plan provides specific, prioritized recommendations based on AI analysis of your current GEO performance, competitive landscape, and content gaps.
+    </div>
+
+    <h3 style="margin-top: 30px;">🔥 Quick Wins (5 High-Priority Actions)</h3>
+    <p style="margin-bottom: 20px; color: #6B7280;">High-impact queries that can be addressed quickly for immediate visibility gains.</p>
+
+    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: #111827; font-size: 16px;">1. quality wood dining tables under $2000</h4>
+            <span style="background: #EFF6FF; color: #3B82F6; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; margin-left: 15px;">
+                Priority: 92/100
+            </span>
+        </div>
+
+        <p style="margin: 12px 0; color: #374151; line-height: 1.6;">Create a dedicated landing page titled 'Premium Wood Dining Tables Under $2000' featuring RH's most accessible solid wood dining options with detailed material specifications, craftsmanship details, and value propositions. Include a curated collection filter and comparison tool highlighting the quality-to-price ratio of each piece.</p>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Difficulty:</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 13px;">Medium</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Impact:</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 13px;">High</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Timeline:</span>
+                <span style="color: #111827; font-weight: 600; font-size: 13px;">3-4 weeks</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E7EB;">
+            <strong style="color: #111827; font-size: 13px;">Tactical Steps:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #374151; font-size: 13px;">
+                <li style="margin: 4px 0;">Optimize the page for long-tail keywords like 'solid wood dining table under 2000' and 'quality hardwood dining furniture affordable' in H1, meta descriptions, and product descriptions</li>
+                <li style="margin: 4px 0;">Create detailed product content emphasizing wood types (oak, walnut, pine), construction methods, and durability features to justify quality positioning at lower price points</li>
+                <li style="margin: 4px 0;">Implement structured data markup for products including price, material, dimensions, and customer ratings to enhance search result snippets</li>
+                <li style="margin: 4px 0;">Add a price comparison section showing RH's value proposition against competitors, plus financing options to make higher-end pieces more accessible</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: #111827; font-size: 16px;">2. modern coffee tables that look expensive but aren't</h4>
+            <span style="background: #EFF6FF; color: #3B82F6; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; margin-left: 15px;">
+                Priority: 88/100
+            </span>
+        </div>
+
+        <p style="margin: 12px 0; color: #374151; line-height: 1.6;">Create a dedicated landing page titled 'Modern Coffee Tables Under $1,000: Luxury Look for Less' featuring RH's more affordable modern coffee table options with strategic pricing context and styling tips. Position these pieces as 'investment-worthy' alternatives to ultra-luxury options while highlighting their premium materials and craftsmanship that deliver an expensive aesthetic.</p>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Difficulty:</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 13px;">Medium</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Impact:</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 13px;">High</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Timeline:</span>
+                <span style="color: #111827; font-weight: 600; font-size: 13px;">3-4 weeks</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E7EB;">
+            <strong style="color: #111827; font-size: 13px;">Tactical Steps:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #374151; font-size: 13px;">
+                <li style="margin: 4px 0;">Develop comparison content showing RH's sub-$1000 modern coffee tables alongside higher-priced competitors, emphasizing superior value proposition</li>
+                <li style="margin: 4px 0;">Create room styling guides demonstrating how to make these tables look more expensive through strategic accessorizing and placement</li>
+                <li style="margin: 4px 0;">Implement long-tail keyword optimization targeting phrases like 'affordable modern coffee tables,' 'luxury look coffee tables under $1000,' and 'expensive looking coffee tables budget'</li>
+                <li style="margin: 4px 0;">Add customer review highlights and before/after room photos to build social proof around the 'expensive look for less' positioning</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: #111827; font-size: 16px;">3. how to find dining table that seats eight comfortably in small open floor plan</h4>
+            <span style="background: #EFF6FF; color: #3B82F6; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; margin-left: 15px;">
+                Priority: 85/100
+            </span>
+        </div>
+
+        <p style="margin: 12px 0; color: #374151; line-height: 1.6;">Create a comprehensive guide titled 'Small Space, Big Style: How to Choose an 8-Person Dining Table for Open Floor Plans' that showcases RH's extendable and space-efficient dining tables with detailed measurements, styling tips, and room layout examples. Include interactive room visualizers and before/after photos of actual customer spaces to demonstrate how RH tables work in compact open-concept homes.</p>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Difficulty:</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 13px;">Medium</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Impact:</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 13px;">High</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Timeline:</span>
+                <span style="color: #111827; font-weight: 600; font-size: 13px;">4-6 weeks</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E7EB;">
+            <strong style="color: #111827; font-size: 13px;">Tactical Steps:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #374151; font-size: 13px;">
+                <li style="margin: 4px 0;">Develop a dedicated landing page with detailed size guides showing minimum space requirements for 8-person tables in open floor plans, featuring RH's extendable and pedestal-base options</li>
+                <li style="margin: 4px 0;">Create a room planning tool or downloadable templates that help customers visualize table placement in their specific open floor plan dimensions</li>
+                <li style="margin: 4px 0;">Partner with interior designers to photograph real customer homes showing RH 8-person tables in small open spaces, including overhead layout shots and multiple angles</li>
+                <li style="margin: 4px 0;">Optimize content for long-tail keywords like 'extendable dining table small space' and 'pedestal dining table seats 8' while naturally incorporating product specifications and room dimension requirements</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: #111827; font-size: 16px;">4. best place for stylish storage solutions</h4>
+            <span style="background: #EFF6FF; color: #3B82F6; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; margin-left: 15px;">
+                Priority: 82/100
+            </span>
+        </div>
+
+        <p style="margin: 12px 0; color: #374151; line-height: 1.6;">Create a comprehensive 'Stylish Storage Solutions Guide' landing page that showcases RH's premium storage furniture organized by room and function, with high-quality lifestyle photography demonstrating how each piece solves common storage challenges while maintaining luxury aesthetics. Include detailed product comparisons, styling tips, and customer testimonials to establish RH as the authoritative destination for upscale storage solutions.</p>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Difficulty:</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 13px;">Medium</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Impact:</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 13px;">High</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Timeline:</span>
+                <span style="color: #111827; font-weight: 600; font-size: 13px;">3-4 weeks</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E7EB;">
+            <strong style="color: #111827; font-size: 13px;">Tactical Steps:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #374151; font-size: 13px;">
+                <li style="margin: 4px 0;">Develop room-by-room storage solution galleries (bedroom, living room, home office, closet) featuring RH's armoires, media consoles, bookcases, and modular systems with 'shop the look' functionality</li>
+                <li style="margin: 4px 0;">Create detailed comparison charts highlighting RH's storage pieces versus competitors, emphasizing superior materials, craftsmanship, and design aesthetics that justify premium positioning</li>
+                <li style="margin: 4px 0;">Optimize page with target keywords like 'luxury storage furniture,' 'stylish organization solutions,' and 'designer storage pieces' while maintaining natural, helpful content flow</li>
+                <li style="margin: 4px 0;">Implement structured data markup for products and include customer reviews/photos showing real homes to build trust and improve search visibility</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+            <h4 style="margin: 0; color: #111827; font-size: 16px;">5. comfortable sleeper sofas that guests will love</h4>
+            <span style="background: #EFF6FF; color: #3B82F6; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; white-space: nowrap; margin-left: 15px;">
+                Priority: 79/100
+            </span>
+        </div>
+
+        <p style="margin: 12px 0; color: #374151; line-height: 1.6;">Create a comprehensive buying guide titled 'The Ultimate Guide to Comfortable Sleeper Sofas Your Guests Will Actually Want to Sleep On' featuring RH's premium sleeper sofa collection with detailed comfort specifications, guest testimonials, and styling tips. This content should highlight RH's superior mattress technology, frame construction, and luxury fabrics while addressing common guest comfort concerns.</p>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Difficulty:</span>
+                <span style="color: #F59E0B; font-weight: 600; font-size: 13px;">Medium</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Impact:</span>
+                <span style="color: #10B981; font-weight: 600; font-size: 13px;">High</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="color: #6B7280; font-size: 13px;">Timeline:</span>
+                <span style="color: #111827; font-weight: 600; font-size: 13px;">3-4 weeks</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E5E7EB;">
+            <strong style="color: #111827; font-size: 13px;">Tactical Steps:</strong>
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; color: #374151; font-size: 13px;">
+                <li style="margin: 4px 0;">Develop detailed product comparison charts showing mattress thickness, spring systems, and comfort ratings for each RH sleeper sofa model</li>
+                <li style="margin: 4px 0;">Include authentic customer reviews and photos specifically from guests who have slept on the sofas, emphasizing comfort and sleep quality</li>
+                <li style="margin: 4px 0;">Create room setting photography showing sleeper sofas in guest bedrooms and living spaces with step-by-step setup demonstrations</li>
+                <li style="margin: 4px 0;">Optimize content with long-tail keywords like 'luxury sleeper sofas for guests,' 'most comfortable pull-out couch,' and 'high-end sofa beds' while maintaining RH's premium brand voice</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <h3 style="margin-top: 40px;">⚡ Strategic Initiatives (1 Medium-Term Actions)</h3>
+    <p style="margin-bottom: 20px; color: #6B7280;">Systematic content development for sustained competitive advantage.</p>
+
+    <div style="background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 8px; padding: 18px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+            <h4 style="margin: 0; color: #111827; font-size: 15px;">1. coffee table with hidden storage for toys that matches mid century modern decor</h4>
+            <span style="background: #F3F4F6; color: #6B7280; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 15px;">
+                68/100
+            </span>
+        </div>
+
+        <p style="margin: 10px 0 12px 0; color: #4B5563; line-height: 1.5; font-size: 14px;">Create a dedicated landing page titled 'Mid-Century Modern Coffee Tables with Hidden Storage' featuring RH's existing coffee tables with storage compartments, emphasizing their toy storage capabilities and mid-century aesthetic. Include lifestyle photography showing families using these pieces in modern living rooms with toys seamlessly stored inside.</p>
+
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; font-size: 12px;">
+            <span style="color: #6B7280;">Difficulty: <strong style="color: #F59E0B;">Medium</strong></span>
+            <span style="color: #6B7280;">Impact: <strong style="color: #10B981;">High</strong></span>
+            <span style="color: #6B7280;">Timeline: <strong style="color: #111827;">3-4 weeks</strong></span>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">🗓️ Implementation Roadmap</h3>
+    <p style="margin-bottom: 20px; color: #6B7280;">Phased approach to systematic GEO optimization.</p>
+
+    <div style="background: #FFFFFF; border: 2px solid #000000; border-radius: 0; padding: 20px; margin-bottom: 15px; color: #000000;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h4 style="margin: 0; font-size: 16px;">Phase 1: Quick Wins & High-Impact Opportunities</h4>
+            <span style="background: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 12px; font-size: 13px; font-weight: 600;">
+                45-60 days
+            </span>
+        </div>
+
+        <p style="margin: 10px 0; line-height: 1.6;"><strong>Focus:</strong> Address top priority queries with easy-to-implement solutions</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px;"><strong>Expected Impact:</strong> Capture 5 high-priority queries</p>
+
+        <ul style="margin: 10px 0 0 20px; font-size: 13px;">
+            <li style="margin: 3px 0;">quality wood dining tables under $2000</li>
+            <li style="margin: 3px 0;">modern coffee tables that look expensive but aren't</li>
+            <li style="margin: 3px 0;">how to find dining table that seats eight comfortably in small open floor plan</li>
+        </ul>
+    </div>
+
+    <div style="background: #FFFFFF; border: 2px solid #000000; border-radius: 0; padding: 20px; margin-bottom: 15px; color: #000000;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h4 style="margin: 0; font-size: 16px;">Phase 2: Strategic Content Development</h4>
+            <span style="background: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 12px; font-size: 13px; font-weight: 600;">
+                60-120 days
+            </span>
+        </div>
+
+        <p style="margin: 10px 0; line-height: 1.6;"><strong>Focus:</strong> Build comprehensive content addressing systematic gaps</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px;"><strong>Expected Impact:</strong> Strengthen position across key content categories</p>
+    </div>
+
+    <div style="background: #FFFFFF; border: 2px solid #000000; border-radius: 0; padding: 20px; margin-bottom: 15px; color: #000000;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h4 style="margin: 0; font-size: 16px;">Phase 3: Competitive Positioning & Optimization</h4>
+            <span style="background: rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 12px; font-size: 13px; font-weight: 600;">
+                90-120 days
+            </span>
+        </div>
+
+        <p style="margin: 10px 0; line-height: 1.6;"><strong>Focus:</strong> Address competitive displacement opportunities and optimize existing content</p>
+        <p style="margin: 10px 0 0 0; font-size: 14px;"><strong>Expected Impact:</strong> Establish market leadership position</p>
+        <ul style="margin: 10px 0 0 20px; font-size: 13px;">
+            <li style="margin: 3px 0;">coffee table with hidden storage for toys that matches mid century modern decor</li>
+        </ul>
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Data Source: 60 queries tested across 4 AI platforms</p>
+</div>
+
+</div>
+</div>
+</body>
+</html>

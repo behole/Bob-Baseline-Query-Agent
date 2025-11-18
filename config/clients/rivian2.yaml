@@ -1,0 +1,27 @@
+# Client Configuration: Rivian
+brand_name: "Rivian"
+industry: "automotive"
+
+# Custom keywords (auto-generated based on brand)
+keywords:
+  - "rivian"
+
+# Competitors for this industry
+competitors:
+  - "Toyota"
+  - "Honda"
+  - "Ford"
+  - "Chevrolet"
+  - "Tesla"
+  - "BMW"
+  - "Mercedes-Benz"
+  - "Audi"
+  - "Nissan"
+  - "Hyundai"
+
+# Client-specific settings
+settings:
+  screenshot_dir: "screenshots/rivian2"
+  report_branding:
+    primary_color: "#000000"
+    logo_url: ""
