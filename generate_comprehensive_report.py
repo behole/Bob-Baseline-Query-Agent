@@ -69,7 +69,9 @@ class ComprehensiveGEOReportGenerator:
             'total_responses': len(all_data),
             'brand_mentions': 0,
             'platforms': {},
+            'platforms_generic': {},  # NEW: Generic-only platform stats (THE REAL GEO METRIC)
             'competitors': defaultdict(int),
+            'competitors_generic': defaultdict(int),  # NEW: Generic-only competitor stats
             'zero_mention_queries': [],
             'query_performance': {},
             'by_query_type': {
@@ -81,6 +83,7 @@ class ComprehensiveGEOReportGenerator:
 
         unique_queries = {}
         platform_data = defaultdict(lambda: {'total': 0, 'mentions': 0})
+        platform_data_generic = defaultdict(lambda: {'total': 0, 'mentions': 0})  # NEW: Track generic separately
 
         for row in all_data:
             query_text = str(row.get('Query Text', ''))
@@ -101,21 +104,35 @@ class ComprehensiveGEOReportGenerator:
                     'competitors': []
                 }
 
+            # Determine if this is a generic query (for GEO optimization tracking)
+            is_generic = unique_queries[query_text]['category'] == 'generic'
+
             # Track brand mentions
             if mentioned in ['yes', 'y', 'true']:
                 analysis['brand_mentions'] += 1
                 platform_data[platform]['mentions'] += 1
                 unique_queries[query_text]['platforms_with_brand'].append(platform)
+
+                # Track generic-only mentions (THE REAL GEO METRIC)
+                if is_generic:
+                    platform_data_generic[platform]['mentions'] += 1
             else:
                 unique_queries[query_text]['platforms_without_brand'].append(platform)
 
             platform_data[platform]['total'] += 1
+
+            # Track generic-only platform stats
+            if is_generic:
+                platform_data_generic[platform]['total'] += 1
 
             # Track competitors
             if competitors_str and competitors_str.lower() not in ['none', '']:
                 for comp in [c.strip() for c in competitors_str.split(',')]:
                     if comp:
                         analysis['competitors'][comp] += 1
+                        # Track generic-only competitor mentions
+                        if is_generic:
+                            analysis['competitors_generic'][comp] += 1
                         if comp not in unique_queries[query_text]['competitors']:
                             unique_queries[query_text]['competitors'].append(comp)
 
@@ -145,9 +162,17 @@ class ComprehensiveGEOReportGenerator:
         analysis['total_queries'] = len(unique_queries)
         analysis['mention_rate'] = (analysis['brand_mentions'] / analysis['total_responses'] * 100) if analysis['total_responses'] > 0 else 0
 
-        # Platform performance
+        # Platform performance (ALL queries - less meaningful due to branded query inflation)
         for platform, data in platform_data.items():
             analysis['platforms'][platform] = {
+                'total': data['total'],
+                'mentions': data['mentions'],
+                'rate': (data['mentions'] / data['total'] * 100) if data['total'] > 0 else 0
+            }
+
+        # Platform performance (GENERIC QUERIES ONLY - THE REAL GEO METRIC)
+        for platform, data in platform_data_generic.items():
+            analysis['platforms_generic'][platform] = {
                 'total': data['total'],
                 'mentions': data['mentions'],
                 'rate': (data['mentions'] / data['total'] * 100) if data['total'] > 0 else 0
@@ -159,8 +184,12 @@ class ComprehensiveGEOReportGenerator:
             mentions = analysis['by_query_type'][category]['mentions']
             analysis['by_query_type'][category]['mention_rate'] = (mentions / total * 100) if total > 0 else 0
 
-        # Add brand to competitor rankings
+        # Add brand to competitor rankings (all queries)
         analysis['competitors'][self.brand_name] = analysis['brand_mentions']
+
+        # Add brand to generic-only competitor rankings (THE REAL GEO METRIC)
+        generic_brand_mentions = analysis['by_query_type']['generic']['mentions']
+        analysis['competitors_generic'][self.brand_name] = generic_brand_mentions
 
         return analysis
 
@@ -278,6 +307,20 @@ class ComprehensiveGEOReportGenerator:
         insights = self._generate_critical_insights(analysis)
         recommendations = self._generate_top_recommendations(analysis, overall_rate)
 
+        # Determine GEO performance status
+        if generic_rate >= 30:
+            geo_status = "Strong GEO Position"
+            geo_color = "#10B981"
+        elif generic_rate >= 15:
+            geo_status = "Growing Presence"
+            geo_color = "#F59E0B"
+        else:
+            geo_status = "Early Stage"
+            geo_color = "#EF4444"
+
+        # Get best generic platform
+        best_generic_platform = max(analysis['platforms_generic'].items(), key=lambda x: x[1]['rate']) if analysis['platforms_generic'] else ('N/A', {'rate': 0})
+
         return f"""
 <!-- EXECUTIVE SUMMARY -->
 <div class="section">
@@ -288,27 +331,46 @@ class ComprehensiveGEOReportGenerator:
         </div>
     </div>
 
+    <!-- HERO METRIC: GEO Performance -->
+    <div style="background: linear-gradient(135deg, #000000 0%, #333333 100%); color: white; padding: 50px 40px; margin: 30px 0; border-radius: 12px; text-align: center; border: 4px solid #000000;">
+        <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; opacity: 0.9;">
+            🎯 PRIMARY GEO PERFORMANCE METRIC
+        </div>
+        <div style="font-size: 96px; font-weight: 700; line-height: 1; margin: 20px 0;">
+            {generic_rate:.1f}%
+        </div>
+        <div style="font-size: 24px; font-weight: 600; margin-bottom: 20px; opacity: 0.95;">
+            Generic Query Mention Rate
+        </div>
+        <div style="display: inline-block; background: {geo_color}; color: white; padding: 12px 30px; border-radius: 24px; font-size: 16px; font-weight: 700; margin-top: 10px;">
+            {geo_status}
+        </div>
+        <div style="max-width: 800px; margin: 30px auto 0; font-size: 15px; line-height: 1.8; opacity: 0.9; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <strong>Why This Matters:</strong> This metric shows how often AI platforms recommend {self.brand_name} when users DON'T explicitly ask for it. Unlike branded queries (which always mention your brand), generic queries represent true competitive positioning and GEO optimization opportunity.
+        </div>
+    </div>
+
     <h3>Performance Snapshot</h3>
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-label">Overall Visibility</div>
-            <div class="stat-value">{overall_rate:.1f}%</div>
-            <div class="stat-description">mention rate</div>
+            <div class="stat-label">Best Generic Platform</div>
+            <div class="stat-value" style="font-size: 32px; margin: 20px 0;">{best_generic_platform[0]}</div>
+            <div class="stat-description">{best_generic_platform[1]['rate']:.1f}% generic rate</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Generic Performance</div>
-            <div class="stat-value">{generic_rate:.1f}%</div>
-            <div class="stat-description">non-branded queries</div>
+            <div class="stat-label">Generic Query Count</div>
+            <div class="stat-value">{len(analysis['by_query_type']['generic']['queries'])}</div>
+            <div class="stat-description">unbranded queries tested</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Best Platform</div>
-            <div class="stat-value" style="font-size: 24px; margin: 20px 0;">{best_platform[0]}</div>
-            <div class="stat-description">{best_platform[1]['rate']:.1f}% rate</div>
+            <div class="stat-label">Brand Awareness</div>
+            <div class="stat-value">{analysis['by_query_type']['branded']['mention_rate']:.0f}%</div>
+            <div class="stat-description">branded query rate</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Market Position</div>
-            <div class="stat-value" style="font-size: 20px; margin: 20px 0;">{status}</div>
-            <div class="stat-description">phase</div>
+            <div class="stat-label">Overall Blended Rate</div>
+            <div class="stat-value" style="font-size: 48px;">{overall_rate:.1f}%</div>
+            <div class="stat-description" style="font-size: 11px; opacity: 0.7;">includes branded queries</div>
         </div>
     </div>
 
@@ -487,100 +549,135 @@ class ComprehensiveGEOReportGenerator:
         </div>"""
 
     def _generate_overall_performance_section(self, analysis, overall_rate, generic_rate, best_platform, rankings):
-        """Generate Section 1: Overall Performance"""
+        """Generate Section 2: Overall Performance (GENERIC QUERIES ONLY)"""
 
-        # Determine competitive status
-        brand_rank = next((i for i, (name, _) in enumerate(rankings) if name == self.brand_name), None)
+        # Sort competitors by GENERIC mentions only (THE REAL GEO METRIC)
+        # BUT: Include all industry competitors with 0 mentions for context
+        from geo_audit.utils.competitors import detect_industry, get_competitors
+
+        industry = detect_industry(self.brand_name)
+        industry_competitors = get_competitors(self.brand_name, industry=industry)
+
+        # Add all industry competitors with 0 if not mentioned
+        for comp in industry_competitors:
+            if comp not in analysis['competitors_generic']:
+                analysis['competitors_generic'][comp] = 0
+
+        # Sort and limit to top 10
+        generic_rankings = sorted(
+            analysis['competitors_generic'].items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:10]
+
+        # Determine competitive status based on GENERIC performance
+        brand_rank = next((i for i, (name, _) in enumerate(generic_rankings) if name == self.brand_name), None)
         if brand_rank == 0:
             comp_status = "Market Leader"
-            comp_message = "Leading the market"
+            comp_message = "Leading in generic queries"
         elif brand_rank:
             comp_status = f"Rank #{brand_rank + 1}"
-            comp_message = f"vs {rankings[0][0]}"
+            comp_message = f"vs {generic_rankings[0][0]}"
         else:
             comp_status = "Following"
-            comp_message = "Building presence"
+            comp_message = "Building GEO presence"
 
+        # Platform cards showing GENERIC QUERY PERFORMANCE ONLY
         platform_cards = ""
-        for platform, perf in sorted(analysis['platforms'].items(), key=lambda x: x[1]['rate'], reverse=True):
-            status = "✅ Strong" if perf['rate'] >= 50 else "⚠️ Moderate" if perf['rate'] >= 30 else "🚨 Needs Work"
-            status_class = "success" if perf['rate'] >= 50 else "warning" if perf['rate'] >= 30 else "critical"
+        for platform, perf in sorted(analysis['platforms_generic'].items(), key=lambda x: x[1]['rate'], reverse=True):
+            status = "✅ Strong" if perf['rate'] >= 20 else "⚠️ Moderate" if perf['rate'] >= 10 else "🚨 Needs Work"
+            status_class = "success" if perf['rate'] >= 20 else "warning" if perf['rate'] >= 10 else "critical"
 
             platform_cards += f"""
         <div class="platform-card">
             <div class="platform-name">{platform}</div>
             <div class="stat-value" style="font-size: 60px;">{perf['rate']:.1f}%</div>
-            <div class="stat-description"><strong>{self.brand_short} Mentions:</strong> {perf['mentions']}/{perf['total']}</div>
+            <div class="stat-description"><strong>Generic Mentions:</strong> {perf['mentions']}/{perf['total']}</div>
             <div class="stat-description status-{status_class}" style="margin-top: 15px;">{status}</div>
         </div>"""
 
+        # Calculate generic query stats for display
+        generic_total = analysis['by_query_type']['generic']['total']
+        generic_mentions = analysis['by_query_type']['generic']['mentions']
+
         return f"""
-<!-- SECTION 2: OVERALL PERFORMANCE -->
+<!-- SECTION 2: OVERALL PERFORMANCE (GENERIC QUERIES ONLY) -->
 <section class="section">
     <div class="section-header">
         <div class="section-number">2</div>
         <div>
-            <div class="section-title">📊 Overall Performance</div>
-            <div class="section-subtitle">Visibility Metrics & Share of Voice</div>
+            <div class="section-title">📊 GEO Performance Analysis</div>
+            <div class="section-subtitle">Generic Query Visibility & Competitive Position</div>
         </div>
+    </div>
+
+    <div class="callout" style="background: #FEF3C7; border-color: #F59E0B;">
+        <strong>🎯 IMPORTANT:</strong> This section shows performance on <strong>generic queries only</strong> (queries that don't mention {self.brand_name}). This is the TRUE measure of GEO effectiveness. Branded queries are tracked separately in the Brand Awareness section.
     </div>
 
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-label">Overall Mention Rate</div>
-            <div class="stat-value">{overall_rate:.1f}%</div>
-            <div class="stat-description">{analysis['brand_mentions']} out of {analysis['total_responses']} total responses</div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Generic Query Performance ⭐</div>
+            <div class="stat-label">Generic Query Mention Rate</div>
             <div class="stat-value">{generic_rate:.1f}%</div>
-            <div class="stat-description">KEY METRIC - True competitive position</div>
+            <div class="stat-description">{generic_mentions} out of {generic_total} unbranded responses</div>
         </div>
 
         <div class="stat-card">
-            <div class="stat-label">Competitive Gap</div>
-            <div class="stat-value">{comp_status}</div>
+            <div class="stat-label">GEO Competitive Position</div>
+            <div class="stat-value" style="font-size: 32px;">{comp_status}</div>
             <div class="stat-description">{comp_message}</div>
         </div>
 
         <div class="stat-card">
-            <div class="stat-label">Best Platform</div>
-            <div class="stat-value">{best_platform[0]}</div>
-            <div class="stat-description">{best_platform[1]['rate']:.1f}% mention rate</div>
+            <div class="stat-label">Generic Queries Tested</div>
+            <div class="stat-value">{len(analysis['by_query_type']['generic']['queries'])}</div>
+            <div class="stat-description">unbranded search queries</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Opportunity Gap</div>
+            <div class="stat-value" style="font-size: 48px;">{100 - generic_rate:.0f}%</div>
+            <div class="stat-description">optimization potential</div>
         </div>
     </div>
 
-    <h3>Share of Voice Rankings</h3>
+    <h3>Generic Query Share of Voice Rankings</h3>
     <div class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>Rank</th>
                     <th>Brand</th>
-                    <th>Total Mentions</th>
+                    <th>Generic Mentions</th>
                     <th>Mention Rate</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-{self._generate_competitor_table_rows(rankings, analysis)}
+{self._generate_competitor_table_rows(generic_rankings, analysis, generic_only=True)}
             </tbody>
         </table>
     </div>
 
-    <h3>Performance by Platform (All Queries)</h3>
+    <h3>Platform Performance (Generic Queries Only)</h3>
     <div class="platform-grid">
 {platform_cards}
     </div>
 </section>"""
 
-    def _generate_competitor_table_rows(self, rankings, analysis):
+    def _generate_competitor_table_rows(self, rankings, analysis, generic_only=False):
         """Generate competitor ranking table rows"""
         rows = ""
         for i, (brand, mentions) in enumerate(rankings):
             rank_num = i + 1
-            mention_rate = (mentions / analysis['total_responses'] * 100) if analysis['total_responses'] > 0 else 0
+
+            # Calculate mention rate based on generic or all responses
+            if generic_only:
+                total = analysis['by_query_type']['generic']['total']
+            else:
+                total = analysis['total_responses']
+
+            mention_rate = (mentions / total * 100) if total > 0 else 0
             is_our_brand = (brand == self.brand_name)
 
             rank_badge = f'<span class="rank-badge">#{rank_num}</span>' if rank_num <= 3 else str(rank_num)
@@ -604,10 +701,11 @@ class ComprehensiveGEOReportGenerator:
         return rows
 
     def _generate_platform_insights_section(self, analysis):
-        """Generate Section 2: Platform Insights with 5 numbered points per platform"""
+        """Generate Section 3: Platform Insights with 5 numbered points per platform (GENERIC QUERIES ONLY)"""
         platform_html = ""
 
-        sorted_platforms = sorted(analysis['platforms'].items(), key=lambda x: x[1]['rate'], reverse=True)
+        # Use generic-only platform data for insights
+        sorted_platforms = sorted(analysis['platforms_generic'].items(), key=lambda x: x[1]['rate'], reverse=True)
 
         for platform, perf in sorted_platforms:
             # Generate 5 strategic insights per platform
@@ -640,9 +738,10 @@ class ComprehensiveGEOReportGenerator:
 </section>"""
 
     def _generate_platform_strategic_insights(self, platform, perf, analysis):
-        """Generate 5 numbered strategic insights for a platform"""
+        """Generate 5 numbered strategic insights for a platform (GENERIC QUERIES ONLY)"""
         rate = perf['rate']
-        overall_rate = analysis['mention_rate']
+        # Compare to overall GENERIC rate, not blended rate
+        overall_rate = analysis['by_query_type']['generic']['mention_rate']
         diff = rate - overall_rate
 
         insights = []

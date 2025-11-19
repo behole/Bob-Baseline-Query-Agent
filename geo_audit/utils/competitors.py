@@ -68,18 +68,39 @@ COMPETITOR_DB = {
     'entertainment': [
         'Netflix', 'Disney+', 'Hulu', 'HBO Max', 'Amazon Prime',
         'Apple TV+', 'Paramount+', 'Peacock', 'Spotify', 'YouTube'
+    ],
+    'hospitality': [
+        'Hilton', 'Hyatt', 'IHG', 'Wyndham', 'Choice Hotels',
+        'Best Western', 'Radisson', 'Accor', 'Four Seasons', 'Ritz-Carlton',
+        'Sheraton', 'Westin', 'Courtyard', 'Fairfield Inn', 'Holiday Inn',
+        'Hampton Inn', 'SpringHill Suites', 'Residence Inn', 'Homewood Suites',
+        'Embassy Suites', 'DoubleTree', 'Waldorf Astoria', 'Conrad Hotels'
     ]
 }
 
 
 # Brand-to-industry mappings
 BRAND_INDUSTRY_MAP = {
+    # Sunscreen brands
     'brush on block': 'sunscreen',
     'bob': 'sunscreen',
+
+    # Furniture brands
     'restoration hardware': 'furniture',
     'rh': 'furniture',
     'pottery barn': 'furniture',
     'west elm': 'furniture',
+
+    # Hospitality brands
+    'marriott': 'hospitality',
+    'hilton': 'hospitality',
+    'hyatt': 'hospitality',
+    'ihg': 'hospitality',
+    'holiday inn': 'hospitality',
+    'sheraton': 'hospitality',
+    'westin': 'hospitality',
+    'four seasons': 'hospitality',
+    'ritz-carlton': 'hospitality',
 }
 
 
@@ -108,6 +129,12 @@ def detect_industry(brand_name: str) -> str:
 
     if any(term in brand_lower for term in ['skincare', 'skin care', 'beauty']):
         return 'skincare'
+
+    if any(term in brand_lower for term in ['hotel', 'resort', 'inn', 'suites', 'hospitality']):
+        return 'hospitality'
+
+    if any(term in brand_lower for term in ['nike', 'adidas', 'athletic', 'sports', 'running']):
+        return 'athletic wear'
 
     return 'general'
 
